@@ -228,11 +228,6 @@ export default function AboutPage() {
           </Link>
         </div>
       </div>
-
-      {/* Footer Quote */}
-      <div className="max-w-4xl mx-auto mt-20 text-center">
-        <p className="text-2xl font-bold text-orange-600">JAI SHREE RAM</p>
-      </div>
     </div>
   )
 }
