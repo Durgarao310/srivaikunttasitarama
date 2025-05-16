@@ -1,103 +1,363 @@
-import Image from "next/image";
-
+import Image from 'next/image'
+import Link from 'next/link'
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ChevronRight } from 'lucide-react'
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
+    <main className="flex-1">
+    {/* Hero Section */}
+    <section className="relative">
+      <div className="absolute inset-0 z-0">
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
+          src="https://www.srivaikunttasitarama.com/wp-content/uploads/2021/10/External-View-3-scaled.jpg"
+          alt="Sri Vaikuntta Sitarama Temple"
+          fill
+          className="object-cover brightness-50"
           priority
         />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      </div>
+      
+      <div className="relative z-10 container px-4 md:px-6 py-24 md:py-32 lg:py-40 mx-auto">
+        <div className="flex flex-col items-center text-center space-y-6 max-w-3xl mx-auto">
+          <div className="inline-block rounded-lg bg-[#ffa500]/20 backdrop-blur-sm px-3 py-1 text-sm text-white border border-[#ffa500]/40">
+            JAI SHREE RAM
+          </div>
+          <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl/none text-white">
+            SRI VAIKUNTTA SITARAMA DEVALAYAM
+          </h1>
+          <p className="mx-auto max-w-[700px] text-white/90 md:text-xl">
+            A sacred space dedicated to Lord Rama, Mother Sitama, and Lord Laxmana in Shah Alam, Malaysia.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button className="bg-[#ffa500] hover:bg-[#e69500] text-[#0c1e35] font-medium">
+              Learn About the Temple
+            </Button>
+            <Button variant="outline" className="border-[#ffa500] text-[#ffa500] hover:bg-[#ffa500]/20">
+              Donate Now
+            </Button>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </div>
+    </section>
+
+    {/* Introduction Section */}
+    <section className="py-16 md:py-24 bg-white">
+      <div className="container px-4 md:px-6 mx-auto">
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
+          <div className="space-y-5">
+            <div className="inline-block rounded-lg bg-[#0c1e35]/10 px-3 py-1 text-sm text-[#0c1e35] font-medium">
+              Our Journey
+            </div>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-[#0c1e35]">
+              Establishing a Sacred Space
+            </h2>
+            <div className="space-y-4 text-gray-600">
+              <p>
+                With the blessings of Mother Sitama and Lord Rama, we have now started the journey to establish our very temple of Lord Rama. With the inspiration of the Deciples Bhakta Ramadasu to build Bhadrachalam Sitarama Devalayamu, the devotees here choose to name the temple as Sri Vaikuntta Sita Rama Devalayamu.
+              </p>
+              <p>
+                The temple is designed to be not just a place of worship but also a center for religious, cultural, language and art teaching, preserving and promoting our rich heritage.
+              </p>
+            </div>
+            <div className="pt-2">
+              <Link 
+                href="/about" 
+                className="inline-flex items-center text-[#0c1e35] font-medium hover:text-[#ffa500] transition-colors"
+              >
+                Read Our Full Story
+                <ChevronRight className="ml-1 h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+          <div className="relative aspect-video rounded-xl overflow-hidden shadow-xl">
+            <Image
+              src="https://www.srivaikunttasitarama.com/wp-content/uploads/2021/10/External-View-3-scaled.jpg"
+              alt="Temple Architectural Model"
+              width={800}
+              height={600}
+              className="object-cover"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Temple Structure Section */}
+    <section className="py-16 md:py-24 bg-[#f8f9fa]">
+      <div className="container px-4 md:px-6 mx-auto" >
+        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
+          <div className="inline-block rounded-lg bg-[#0c1e35]/10 px-3 py-1 text-sm text-[#0c1e35] font-medium">
+            Temple Architecture
+          </div>
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-[#0c1e35]">
+            Temple Structure
+          </h2>
+          <p className="mx-auto max-w-[700px] text-gray-600 md:text-lg">
+            The temple is designed with traditional architecture while providing modern amenities
+          </p>
+        </div>
+        
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <Card className="border-[#0c1e35]/10 shadow-md hover:shadow-lg transition-shadow">
+            <div className="relative h-48 overflow-hidden rounded-t-lg">
+              <Image
+                src="https://www.srivaikunttasitarama.com/wp-content/uploads/2021/10/External-View-3-scaled.jpg"
+                alt="Temple Top Floor"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <CardContent className="p-6 space-y-4">
+              <h3 className="text-xl font-bold text-[#0c1e35]">Top Floor - Main Temple</h3>
+              <p className="text-gray-600">
+                The top floor will be constructed as a temple with 3 gopuram garbagudi. Devotees will be welcomed with a view of an open green lawn to give a feel of peaceful ambiance and surroundings.
+              </p>
+              <p className="text-gray-600">
+                Even though the temple is situated on the top floor, the design maintains the feel and look of a normal ground-level temple with a green lawn surrounding the main temple.
+              </p>
+            </CardContent>
+          </Card>
+          
+          <Card className="border-[#0c1e35]/10 shadow-md hover:shadow-lg transition-shadow">
+            <div className="relative h-48 overflow-hidden rounded-t-lg">
+              <Image
+                src="https://www.srivaikunttasitarama.com/wp-content/uploads/2021/10/External-View-3-scaled.jpg"
+                alt="Temple Ground Floor"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <CardContent className="p-6 space-y-4">
+              <h3 className="text-xl font-bold text-[#0c1e35]">Ground Floor - Multi-purpose Hall</h3>
+              <p className="text-gray-600">
+                The ground floor is made of a 500 pax capacity multi-purpose hall for events like weddings, cultural programs, and religious festivals.
+              </p>
+              <p className="text-gray-600">
+                An internal mezzanine floor is built which will have classrooms, office rooms, AV room, and Viewing gallery.
+              </p>
+            </CardContent>
+          </Card>
+          
+          <Card className="border-[#0c1e35]/10 shadow-md hover:shadow-lg transition-shadow">
+            <div className="relative h-48 overflow-hidden rounded-t-lg">
+              <Image
+                src="https://www.srivaikunttasitarama.com/wp-content/uploads/2021/10/External-View-3-scaled.jpg"
+                alt="Temple Accessibility"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <CardContent className="p-6 space-y-4">
+              <h3 className="text-xl font-bold text-[#0c1e35]">Accessibility Features</h3>
+              <p className="text-gray-600">
+                There will be a staircase on the left and the right and lift services for devotees to walk into to the temple, ensuring accessibility for all visitors.
+              </p>
+              <p className="text-gray-600">
+                The design incorporates modern amenities while preserving traditional architectural elements.
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </section>
+
+    {/* Temple Idols Section */}
+    <section className="py-16 md:py-24 bg-white">
+      <div className="container px-4 md:px-6 mx-auto">
+        <div className="flex flex-col items-center justify-center space-y-4 text-center mb-12">
+          <div className="inline-block rounded-lg bg-[#0c1e35]/10 px-3 py-1 text-sm text-[#0c1e35] font-medium">
+            Divine Presence
+          </div>
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-[#0c1e35]">
+            Temple Idols
+          </h2>
+          <p className="mx-auto max-w-[700px] text-gray-600 md:text-lg">
+            The sacred idols that will grace our temple
+          </p>
+        </div>
+        
+        <Tabs defaultValue="main" className="w-full">
+          <TabsList className="grid w-full grid-cols-3 bg-[#0c1e35]/10">
+            <TabsTrigger 
+              value="main" 
+              className="data-[state=active]:bg-[#0c1e35] data-[state=active]:text-white"
+            >
+              Main Altar
+            </TabsTrigger>
+            <TabsTrigger 
+              value="right" 
+              className="data-[state=active]:bg-[#0c1e35] data-[state=active]:text-white"
+            >
+              Right Altar
+            </TabsTrigger>
+            <TabsTrigger 
+              value="left" 
+              className="data-[state=active]:bg-[#0c1e35] data-[state=active]:text-white"
+            >
+              Left Altar
+            </TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="main" className="mt-6">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg">
+                <Image
+                  src="/https://www.srivaikunttasitarama.com/wp-content/uploads/2021/10/External-View-3-scaled.jpg"
+                  alt="Lord Rama, Sita and Laxmana"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold text-[#0c1e35]">Moolah Stalam</h3>
+                <div className="space-y-4 text-gray-600">
+                  <p>
+                    The main idols in the temple area, in the center (Moolah Stalam) will be Lord Vaikuntta Rama, Mother Sitama sitting on his lap, and Lord Laxmana standing on his left.
+                  </p>
+                  <p>
+                    These idols will be the exact replica in shape and size of the Main Idols at Bhadrachala Sri Sita Ramachandra Swamy vaari Devasthanam.
+                  </p>
+                  <p>
+                    The idols will be carved from specially selected white marble by a sculptor from Gujarat. Bhadrachalam Temple's chief priest will assist us to ensure that all information with regards to the finer details, shape, and sizes of the Idols are provided to the sculptor.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="right" className="mt-6">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg md:order-last">
+                <Image
+                  src="https://www.srivaikunttasitarama.com/wp-content/uploads/2021/10/External-View-3-scaled.jpg"
+                  alt="Maha Laxmi and Lord Vishnu"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold text-[#0c1e35]">Right Altar</h3>
+                <div className="space-y-4 text-gray-600">
+                  <p>
+                    On the right of the main altar will be the Idols of Maha Laxmi and Lord Vishnu.
+                  </p>
+                  <p>
+                    These idols will be made of high quality white marble in Gujarat, crafted with precision and devotion to capture the divine essence.
+                  </p>
+                  <p>
+                    The placement and design of these idols follow traditional Vaishnavite temple architecture principles.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="left" className="mt-6">
+            <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div className="relative aspect-square rounded-xl overflow-hidden shadow-lg">
+                <Image
+                  src="https://www.srivaikunttasitarama.com/wp-content/uploads/2021/10/External-View-3-scaled.jpg"
+                  alt="Radha and Krishna"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-2xl font-bold text-[#0c1e35]">Left Altar</h3>
+                <div className="space-y-4 text-gray-600">
+                  <p>
+                    On the left altar will be Goddess Radha and Lord Krishna.
+                  </p>
+                  <p>
+                    Like the other idols, these will also be made of high quality white marble in Gujarat, showcasing the divine love between Radha and Krishna.
+                  </p>
+                  <p>
+                    The craftsmanship will ensure that the idols capture the grace and beauty of these beloved deities.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </section>
+
+    {/* Cultural Center Section */}
+    <section className="py-16 md:py-24 bg-[#0c1e35] text-white">
+      <div className="container px-4 md:px-6 mx-auto">
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
+          <div className="space-y-5">
+            <div className="inline-block rounded-lg bg-[#ffa500]/20 px-3 py-1 text-sm text-[#ffa500] font-medium">
+              More Than A Temple
+            </div>
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
+              A Center for Culture & Learning
+            </h2>
+            <div className="space-y-4 text-gray-300">
+              <p>
+                In keeping our mission to build the Temple not only to serve as a place for prayers but creating a center for religious, cultural, language and art teaching, the designing of the ground floor was made by incorporating the purpose and needs.
+              </p>
+              <p>
+                The multi-purpose hall can host up to 500 people for events like weddings, cultural programs, and religious festivals. The internal mezzanine floor provides space for classrooms, offices, and more.
+              </p>
+            </div>
+            <div className="pt-4 flex flex-wrap gap-4">
+              <Button className="bg-[#ffa500] hover:bg-[#e69500] text-[#0c1e35] font-medium">
+                Upcoming Events
+              </Button>
+              <Button variant="outline" className="border-[#ffa500] text-[#ffa500] hover:bg-[#ffa500]/20">
+                Cultural Programs
+              </Button>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="relative aspect-[4/5] rounded-xl overflow-hidden shadow-xl">
+              <Image
+                src="https://www.srivaikunttasitarama.com/wp-content/uploads/2021/10/External-View-3-scaled.jpg"
+                alt="Cultural Performance"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="relative aspect-[4/5] rounded-xl overflow-hidden shadow-xl mt-8">
+              <Image
+                src="https://www.srivaikunttasitarama.com/wp-content/uploads/2021/10/External-View-3-scaled.jpg"
+                alt="Temple Classroom"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Call to Action Section */}
+    <section className="py-16 md:py-24 bg-[#f8f9fa]">
+      <div className="container px-4 md:px-6 mx-auto">
+        <div className="flex flex-col items-center text-center space-y-8 max-w-3xl mx-auto">
+          <div className="inline-block rounded-lg bg-[#0c1e35]/10 px-3 py-1 text-sm text-[#0c1e35] font-medium">
+            Join Our Journey
+          </div>
+          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl text-[#0c1e35]">
+            Be Part of This Sacred Endeavor
+          </h2>
+          <p className="text-gray-600 md:text-lg">
+            Your support and contributions will help us build this beautiful temple and cultural center. Join us in creating a spiritual home for generations to come.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <Button className="bg-[#ffa500] hover:bg-[#e69500] text-[#0c1e35] font-medium px-8 py-6 text-lg">
+              Donate Now
+            </Button>
+            <Button variant="outline" className="border-[#0c1e35] text-[#0c1e35] hover:bg-[#0c1e35]/10 px-8 py-6 text-lg">
+              Volunteer With Us
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
   );
 }
