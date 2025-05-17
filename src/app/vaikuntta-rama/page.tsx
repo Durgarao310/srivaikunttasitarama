@@ -67,7 +67,7 @@ export default function VaikunttaRamaPage() {
             <div className="md:flex">
               <div className="md:w-1/3 relative h-60 md:h-auto">
                 <Image
-                  src="/placeholder-6gtyh.png"
+                  src="https://lh3.googleusercontent.com/proxy/la3YzBJZud4V9fnybG7cDV2bGSmdeufro5Uzt6q7RtQTYGJ_8Ee2-GLEAPhfT_U1P1ZPTX4oy1nXohgcRvYawBzvUExx3xgvSPBBWNZ6h81G99CcPQ2T-vNqPWFS4uI-erG2ER2eePE"
                   alt="Maharshi Bhadra performing penance"
                   fill
                   className="object-cover"
@@ -155,9 +155,9 @@ export default function VaikunttaRamaPage() {
 
           <Card className="overflow-hidden">
             <div className="md:flex flex-row-reverse">
-              <div className="md:w-1/3 relative h-60 md:h-auto">
+              <div className="md:w-1/2 relative h-auto">
                 <Image
-                  src="/placeholder-d5vu2.png"
+                  src="https://www.booksfact.com/images/history/2020/bhadrachala_ramadasu.jpg"
                   alt="Bhadrachalam Temple"
                   fill
                   className="object-cover"
