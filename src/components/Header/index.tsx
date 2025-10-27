@@ -12,6 +12,7 @@ const navItems = [
   { name: "Vaikuntta Rama", href: "/vaikuntta-rama" },
   { name: "Devalayamu", href: "/devalayamu" },
   { name: "Gallery", href: "/gallery" },
+  { name: "Seva Packages", href: "/seva-packages" },
   { name: "Contact", href: "/contact" },
 ];
 

@@ -21,11 +21,16 @@ const quickLinks = [
   { name: "Vaikuntta Rama", href: "/vaikuntta-rama" },
   { name: "Devalayamu", href: "/devalayamu" },
   { name: "Gallery", href: "/gallery" },
+  { name: "Seva Packages", href: "/seva-packages" },
   { name: "Contact", href: "/contact" },
 ];
 
 const socialLinks = [
-  { name: "Facebook", icon: Facebook, href: "https://facebook.com" },
+  {
+    name: "Facebook",
+    icon: Facebook,
+    href: "https://facebook.com/sitaramamalaysia",
+  },
   { name: "Instagram", icon: Instagram, href: "https://instagram.com" },
   { name: "Twitter", icon: Twitter, href: "https://twitter.com" },
   { name: "Youtube", icon: Youtube, href: "https://youtube.com" },
@@ -152,7 +157,7 @@ export default function Footer() {
                     href="tel:+60147172779"
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors"
                   >
-                    +60147172779
+                    +6 014 7172 779
                   </Link>
                 </li>
                 <li className="flex items-center gap-3">
