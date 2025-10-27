@@ -1,197 +1,304 @@
+"use client"
+
 import Image from "next/image"
-import { Mail, Phone, MapPin, Facebook, ExternalLink } from "lucide-react"
+import { motion } from "framer-motion"
+import { Mail, Phone, MapPin, Facebook, ExternalLink, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent } from "@/components/ui/card"
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 40 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+}
+
+const staggerContainer = {
+  animate: {
+    transition: {
+      staggerChildren: 0.1
+    }
+  }
+}
 
 export default function ContactPage() {
   return (
-    <div className="container mx-auto px-4 py-12">
+    <>
       {/* Hero Section */}
-      <div className="relative w-full h-[250px] md:h-[300px] mb-12 rounded-lg overflow-hidden">
-         <Image
-               src="https://www.srivaikunttasitarama.com/wp-content/uploads/2021/10/External-View-2-scaled.jpg"
-               alt="Sri Vaikuntta Sita Rama Devalayammu"
-               fill
-               className="object-cover"
-               priority
-             />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-8">
-          <h1 className="text-3xl md:text-5xl font-bold text-white mb-2">Contact Us</h1>
-          <p className="text-xl text-white/90">{`We'd love to hear from you`}</p>
+      <section className="relative h-[60vh] min-h-[500px] overflow-hidden">
+        <Image
+          src="https://www.srivaikunttasitarama.com/wp-content/uploads/2021/10/External-View-2-scaled.jpg"
+          alt="Sri Vaikuntta Sita Rama Devalayammu"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/20" />
+        
+        <div className="relative z-10 h-full flex items-end">
+          <div className="mx-auto max-w-7xl px-6 pb-20 w-full">
+            <motion.div
+              initial="initial"
+              animate="animate"
+              variants={staggerContainer}
+              className="max-w-3xl space-y-4"
+            >
+              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 rounded-full bg-accent/10 backdrop-blur-sm px-4 py-1.5 border border-accent/20">
+                <Mail className="h-4 w-4 text-accent" />
+                <span className="text-sm font-medium text-white">Get in Touch</span>
+              </motion.div>
+              
+              <motion.h1 variants={fadeInUp} className="text-5xl md:text-6xl font-bold text-white leading-tight">
+                Contact Us
+              </motion.h1>
+              
+              <motion.p variants={fadeInUp} className="text-xl text-white/90 leading-relaxed">
+                We'd love to hear from you
+              </motion.p>
+            </motion.div>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <div className="max-w-6xl mx-auto">
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Information */}
-          <div>
-            <h2 className="text-2xl font-bold text-orange-600 mb-6">Get in Touch</h2>
+      {/* Main Content */}
+      <section className="py-24 px-6">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Contact Information */}
+            <motion.div
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+              className="space-y-8"
+            >
+              <motion.div variants={fadeInUp}>
+                <h2 className="text-3xl font-bold mb-2">Connect With Us</h2>
+                <p className="text-muted-foreground">
+                  Reach out for inquiries, ceremonies, or just to say hello
+                </p>
+              </motion.div>
 
-            <div className="space-y-8">
-              {/* Address */}
-              <div className="flex items-start">
-                <div className="bg-orange-100 p-3 rounded-full mr-4">
-                  <MapPin className="h-6 w-6 text-orange-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg">Address</h3>
-                  <p className="text-gray-700 mt-1">
-                    SRI VAIKUNTTA SITARAMA DEVALAYAM SHAH ALAM
-                    <br />
-                    Jln 18/49, 40200 Shah Alam, Selangor.
-                  </p>
-                </div>
-              </div>
+              <div className="space-y-6">
+                {/* Address */}
+                <motion.div variants={fadeInUp} className="flex items-start gap-4 p-6 rounded-2xl bg-secondary/30 border border-border/50 hover:shadow-md transition-all">
+                  <div className="p-3 rounded-xl bg-accent/10 flex-shrink-0">
+                    <MapPin className="h-6 w-6 text-accent" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-1">Address</h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      SRI VAIKUNTTA SITARAMA DEVALAYAM SHAH ALAM
+                      <br />
+                      Jln 18/49, 40200 Shah Alam, Selangor.
+                    </p>
+                  </div>
+                </motion.div>
 
-              {/* Phone */}
-              <div className="flex items-start">
-                <div className="bg-orange-100 p-3 rounded-full mr-4">
-                  <Phone className="h-6 w-6 text-orange-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg">Phone</h3>
-                  <p className="text-gray-700 mt-1">
-                    <a href="tel:+60147172779" className="hover:text-orange-600 transition-colors">
+                {/* Phone */}
+                <motion.div variants={fadeInUp} className="flex items-start gap-4 p-6 rounded-2xl bg-secondary/30 border border-border/50 hover:shadow-md transition-all">
+                  <div className="p-3 rounded-xl bg-accent/10 flex-shrink-0">
+                    <Phone className="h-6 w-6 text-accent" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-1">Phone</h3>
+                    <a
+                      href="tel:+60147172779"
+                      className="text-muted-foreground hover:text-accent transition-colors"
+                    >
                       +60 14-717 2779
                     </a>
-                  </p>
-                </div>
-              </div>
+                  </div>
+                </motion.div>
 
-              {/* Email */}
-              <div className="flex items-start">
-                <div className="bg-orange-100 p-3 rounded-full mr-4">
-                  <Mail className="h-6 w-6 text-orange-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg">Email</h3>
-                  <p className="text-gray-700 mt-1">
-                    <a href="mailto:srivaikunttasitarama@gmail.com" className="hover:text-orange-600 transition-colors">
+                {/* Email */}
+                <motion.div variants={fadeInUp} className="flex items-start gap-4 p-6 rounded-2xl bg-secondary/30 border border-border/50 hover:shadow-md transition-all">
+                  <div className="p-3 rounded-xl bg-accent/10 flex-shrink-0">
+                    <Mail className="h-6 w-6 text-accent" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-1">Email</h3>
+                    <a
+                      href="mailto:srivaikunttasitarama@gmail.com"
+                      className="text-muted-foreground hover:text-accent transition-colors break-all"
+                    >
                       srivaikunttasitarama@gmail.com
                     </a>
-                  </p>
-                </div>
-              </div>
+                  </div>
+                </motion.div>
 
-              {/* Social Media */}
-              <div className="flex items-start">
-                <div className="bg-orange-100 p-3 rounded-full mr-4">
-                  <Facebook className="h-6 w-6 text-orange-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-lg">Social Media</h3>
-                  <p className="text-gray-700 mt-1">
+                {/* Social Media */}
+                <motion.div variants={fadeInUp} className="flex items-start gap-4 p-6 rounded-2xl bg-secondary/30 border border-border/50 hover:shadow-md transition-all">
+                  <div className="p-3 rounded-xl bg-accent/10 flex-shrink-0">
+                    <Facebook className="h-6 w-6 text-accent" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-lg mb-1">Social Media</h3>
                     <a
                       href="https://www.facebook.com/srivaikunttasitarama"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center hover:text-orange-600 transition-colors"
+                      className="inline-flex items-center gap-1 text-muted-foreground hover:text-accent transition-colors"
                     >
                       Follow us on Facebook
-                      <ExternalLink className="h-4 w-4 ml-1" />
+                      <ExternalLink className="h-4 w-4" />
                     </a>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Map */}
-            <div className="mt-10">
-              <h3 className="font-semibold text-lg mb-4">Our Location</h3>
-              <Card>
-                <CardContent className="p-0 overflow-hidden rounded-lg">
-                  <div className="aspect-video relative">
-                    <iframe
-                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.159090538865!2d101.51091057426947!3d3.052046053743346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc534b6af6abe9%3A0x5cbf9a12cb72ca6c!2sSRI%20VAIKUNTTA%20SITARAMA%20DEVALAYAM%20SHAH%20ALAM!5e0!3m2!1sen!2sin!4v1747403727501!5m2!1sen!2sin"
-                      width="100%"
-                      height="100%"
-                      style={{ border: 0 }}
-                      allowFullScreen={true}
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      className="absolute inset-0"
-                    ></iframe>
                   </div>
-                </CardContent>
-              </Card>
-              <div className="mt-2 text-sm text-gray-500">
-                <a
-                  href="https://maps.app.goo.gl/Ld5Yd9Yd5Yd9Yd5Yd9"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center text-orange-600 hover:text-orange-700"
+                </motion.div>
+
+                {/* Visiting Hours */}
+                <motion.div variants={fadeInUp} className="p-6 rounded-2xl bg-accent/5 border border-accent/20">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="p-2 rounded-xl bg-accent/10">
+                      <Clock className="h-5 w-5 text-accent" />
+                    </div>
+                    <h3 className="font-semibold text-lg">Temple Visiting Hours</h3>
+                  </div>
+                  <p className="text-muted-foreground leading-relaxed">
+                    The temple is open daily from <strong>7:00 AM to 8:00 PM</strong>.
+                    <br />
+                    Special ceremonies and events may have different timings.
+                  </p>
+                </motion.div>
+              </div>
+            </motion.div>
+
+            {/* Contact Form */}
+            <motion.div
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+            >
+              <motion.div variants={fadeInUp}>
+                <h2 className="text-3xl font-bold mb-2">Send a Message</h2>
+                <p className="text-muted-foreground mb-8">
+                  Fill out the form and we'll get back to you soon
+                </p>
+              </motion.div>
+
+              <motion.form variants={fadeInUp} className="space-y-6">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label htmlFor="name" className="text-sm font-medium">
+                      Name
+                    </label>
+                    <Input
+                      id="name"
+                      name="name"
+                      placeholder="Your name"
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="email" className="text-sm font-medium">
+                      Email
+                    </label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="Your email"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="phone" className="text-sm font-medium">
+                    Phone Number
+                  </label>
+                  <Input
+                    id="phone"
+                    name="phone"
+                    placeholder="Your phone number"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="subject" className="text-sm font-medium">
+                    Subject
+                  </label>
+                  <Input
+                    id="subject"
+                    name="subject"
+                    placeholder="Message subject"
+                    required
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label htmlFor="message" className="text-sm font-medium">
+                    Message
+                  </label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    placeholder="Your message"
+                    rows={6}
+                    required
+                  />
+                </div>
+
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
                 >
-                  Get Directions
-                  <ExternalLink className="h-4 w-4 ml-1" />
-                </a>
-              </div>
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <div>
-            <h2 className="text-2xl font-bold text-orange-600 mb-6">Send Us a Message</h2>
-
-            <form className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <label htmlFor="name" className="text-sm font-medium">
-                    Name
-                  </label>
-                  <Input id="name" name="name" placeholder="Your name" required />
-                </div>
-
-                <div className="space-y-2">
-                  <label htmlFor="email" className="text-sm font-medium">
-                    Email
-                  </label>
-                  <Input id="email" name="email" type="email" placeholder="Your email" required />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="phone" className="text-sm font-medium">
-                  Phone Number
-                </label>
-                <Input id="phone" name="phone" placeholder="Your phone number" />
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="subject" className="text-sm font-medium">
-                  Subject
-                </label>
-                <Input id="subject" name="subject" placeholder="Message subject" required />
-              </div>
-
-              <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-medium">
-                  Message
-                </label>
-                <Textarea id="message" name="message" placeholder="Your message" rows={6} required />
-              </div>
-
-              <Button type="submit" className="w-full bg-orange-600 hover:bg-orange-700">
-                Send Message
-              </Button>
-            </form>
-
-            <div className="mt-8 p-4 bg-orange-50 rounded-lg">
-              <h3 className="font-semibold text-lg text-orange-600">Temple Visiting Hours</h3>
-              <p className="text-gray-700 mt-2">
-                The temple is open daily from 7:00 AM to 8:00 PM.
-                <br />
-                Special ceremonies and events may have different timings.
-              </p>
-              <p className="text-gray-700 mt-2">
-                For inquiries about ceremonies, donations, or other matters, please contact us using the information
-                provided.
-              </p>
-            </div>
+                  Send Message
+                </Button>
+              </motion.form>
+            </motion.div>
           </div>
         </div>
-      </div>
-    </div>
+      </section>
+
+      {/* Map Section */}
+      <section className="py-24 px-6 bg-secondary/30">
+        <div className="mx-auto max-w-7xl">
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="space-y-8"
+          >
+            <div className="text-center space-y-4">
+              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 rounded-full bg-background px-4 py-1.5">
+                <MapPin className="h-4 w-4 text-accent" />
+                <span className="text-sm font-medium text-muted-foreground">Find Us</span>
+              </motion.div>
+              
+              <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold">
+                Our Location
+              </motion.h2>
+            </div>
+
+            <motion.div variants={fadeInUp} className="aspect-video rounded-2xl overflow-hidden shadow-lg">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.159090538865!2d101.51091057426947!3d3.052046053743346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc534b6af6abe9%3A0x5cbf9a12cb72ca6c!2sSRI%20VAIKUNTTA%20SITARAMA%20DEVALAYAM%20SHAH%20ALAM!5e0!3m2!1sen!2sin!4v1747403727501!5m2!1sen!2sin"
+                className="w-full h-full"
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </motion.div>
+
+            <motion.div variants={fadeInUp} className="text-center">
+              <a
+                href="https://maps.app.goo.gl/Ld5Yd9Yd5Yd9Yd5Yd9"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-accent hover:text-accent/80 transition-colors font-medium"
+              >
+                Get Directions
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+    </>
   )
 }

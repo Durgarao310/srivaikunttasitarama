@@ -1,407 +1,305 @@
-import Image from "next/image"
-import { Card, CardContent } from "@/components/ui/card"
+"use client"
 
-// Gallery data structure
+import Image from "next/image"
+import { motion } from "framer-motion"
+import { Camera, Calendar } from "lucide-react"
+
+const fadeInUp = {
+  initial: { opacity: 0, y: 40 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+}
+
+const staggerContainer = {
+  animate: {
+    transition: {
+      staggerChildren: 0.08
+    }
+  }
+}
+
 const galleryEvents = [
   {
     id: "kalyana-2023",
-    title: "SRI VAIKUNTA SITARAMA KALYANA MAHOTSVAM",
+    title: "Sri Vaikunta Sitarama Kalyana Mahotsvam",
     date: "1st April 2023",
     year: 2023,
-    category: "ceremony",
+    category: "Ceremony",
     description: "Annual celestial wedding ceremony of Lord Rama and Goddess Sita",
-    images: [
-      {
-        src: "/placeholder.svg?key=kalyana-2023-1",
-        alt: "Sri Vaikuntta Sitarama Kalyana Mahotsvam 2023 - Ceremony",
-      },
-      {
-        src: "/placeholder.svg?key=kalyana-2023-2",
-        alt: "Sri Vaikuntta Sitarama Kalyana Mahotsvam 2023 - Devotees",
-      },
-      {
-        src: "/placeholder.svg?key=kalyana-2023-3",
-        alt: "Sri Vaikuntta Sitarama Kalyana Mahotsvam 2023 - Decorations",
-      },
-      {
-        src: "/placeholder.svg?key=kalyana-2023-4",
-        alt: "Sri Vaikuntta Sitarama Kalyana Mahotsvam 2023 - Procession",
-      },
-    ],
+    image: "/placeholder.svg?key=kalyana-2023-1",
+    count: 4,
   },
   {
     id: "bgm-2023",
-    title: "6TH BGM",
+    title: "6th BGM",
     date: "4th May 2023",
     year: 2023,
-    category: "meeting",
+    category: "Meeting",
     description: "6th Annual General Meeting of the temple association",
-    images: [
-      {
-        src: "/placeholder.svg?key=bgm-2023-1",
-        alt: "6th BGM - Meeting",
-      },
-      {
-        src: "/placeholder.svg?key=bgm-2023-2",
-        alt: "6th BGM - Attendees",
-      },
-      {
-        src: "/placeholder.svg?key=bgm-2023-3",
-        alt: "6th BGM - Discussions",
-      },
-    ],
+    image: "/placeholder.svg?key=bgm-2023-1",
+    count: 3,
   },
   {
     id: "construction-phase1",
-    title: "FIRST PHASE OF CONSTRUCTION",
+    title: "First Phase of Construction",
     date: "2023",
     year: 2023,
-    category: "construction",
+    category: "Construction",
     description: "Beginning of the temple construction project",
-    images: [
-      {
-        src: "/placeholder.svg?key=construction-1",
-        alt: "First Phase of Construction - Foundation Work",
-      },
-      {
-        src: "/placeholder.svg?key=construction-2",
-        alt: "First Phase of Construction - Site Overview",
-      },
-      {
-        src: "/placeholder.svg?key=construction-3",
-        alt: "First Phase of Construction - Workers",
-      },
-      {
-        src: "/placeholder.svg?key=construction-4",
-        alt: "First Phase of Construction - Progress",
-      },
-    ],
+    image: "/placeholder.svg?key=construction-1",
+    count: 4,
   },
   {
     id: "kalyana-2022-aug",
-    title: "SRI VAIKUNTTA SITARAMA KALYANA MAHOTSVAM",
+    title: "Sri Vaikuntta Sitarama Kalyana Mahotsvam",
     date: "13th August 2022",
     year: 2022,
-    category: "ceremony",
+    category: "Ceremony",
     description: "Special celestial wedding ceremony",
-    images: [
-      {
-        src: "/placeholder.svg?key=kalyana-2022-aug-1",
-        alt: "Sri Vaikuntta Sitarama Kalyana Mahotsvam Aug 2022 - Ceremony",
-      },
-      {
-        src: "/placeholder.svg?key=kalyana-2022-aug-2",
-        alt: "Sri Vaikuntta Sitarama Kalyana Mahotsvam Aug 2022 - Devotees",
-      },
-      {
-        src: "/placeholder.svg?key=kalyana-2022-aug-3",
-        alt: "Sri Vaikuntta Sitarama Kalyana Mahotsvam Aug 2022 - Decorations",
-      },
-    ],
+    image: "/placeholder.svg?key=kalyana-2022-aug-1",
+    count: 3,
   },
   {
     id: "model-launch-2022",
-    title: "SRI VAIKUNTA SITARAMA BUILDING MODEL LAUNCHING",
+    title: "Sri Vaikunta Sitarama Building Model Launching",
     date: "21st May 2022",
     year: 2022,
-    category: "event",
+    category: "Event",
     description: "Launch of the temple building model",
-    images: [
-      {
-        src: "/placeholder.svg?key=model-launch-1",
-        alt: "Building Model Launch - Model Display",
-      },
-      {
-        src: "/placeholder.svg?key=model-launch-2",
-        alt: "Building Model Launch - Ceremony",
-      },
-      {
-        src: "/placeholder.svg?key=model-launch-3",
-        alt: "Building Model Launch - Attendees",
-      },
-    ],
+    image: "/placeholder.svg?key=model-launch-1",
+    count: 3,
   },
   {
     id: "covid-aid",
-    title: "HUMANITARIAN AID DURING COVID LOCKDOWN",
+    title: "Humanitarian Aid During COVID Lockdown",
     date: "2020-2021",
     year: 2020,
-    category: "community",
+    category: "Community",
     description: "Providing aid to the community during COVID-19 lockdown",
-    images: [
-      {
-        src: "/placeholder.svg?key=covid-aid-1",
-        alt: "COVID Aid - Food Distribution",
-      },
-      {
-        src: "/placeholder.svg?key=covid-aid-2",
-        alt: "COVID Aid - Essential Supplies",
-      },
-      {
-        src: "/placeholder.svg?key=covid-aid-3",
-        alt: "COVID Aid - Volunteers",
-      },
-    ],
+    image: "/placeholder.svg?key=covid-aid-1",
+    count: 3,
   },
   {
     id: "kalyana-2019",
-    title: "SRI SITARAMA KALYANA MAHOTSVAM",
+    title: "Sri Sitarama Kalyana Mahotsvam",
     date: "2019",
     year: 2019,
-    category: "ceremony",
+    category: "Ceremony",
     description: "Annual celestial wedding ceremony",
-    images: [
-      {
-        src: "/placeholder.svg?key=kalyana-2019-1",
-        alt: "Sri Sitarama Kalyana Mahotsvam 2019 - Ceremony",
-      },
-      {
-        src: "/placeholder.svg?key=kalyana-2019-2",
-        alt: "Sri Sitarama Kalyana Mahotsvam 2019 - Devotees",
-      },
-      {
-        src: "/placeholder.svg?key=kalyana-2019-3",
-        alt: "Sri Sitarama Kalyana Mahotsvam 2019 - Decorations",
-      },
-    ],
+    image: "/placeholder.svg?key=kalyana-2019-1",
+    count: 3,
   },
   {
     id: "bhajan-competition-2019",
-    title: "NATIONAL BHAJAN COMPETITION",
+    title: "National Bhajan Competition",
     date: "2019",
     year: 2019,
-    category: "event",
+    category: "Event",
     description: "National level bhajan competition",
-    images: [
-      {
-        src: "/placeholder.svg?key=bhajan-2019-1",
-        alt: "National Bhajan Competition 2019 - Performances",
-      },
-      {
-        src: "/placeholder.svg?key=bhajan-2019-2",
-        alt: "National Bhajan Competition 2019 - Participants",
-      },
-      {
-        src: "/placeholder.svg?key=bhajan-2019-3",
-        alt: "National Bhajan Competition 2019 - Winners",
-      },
-    ],
+    image: "/placeholder.svg?key=bhajan-2019-1",
+    count: 3,
   },
   {
     id: "bgm-2019",
-    title: "ASSOCIATION 4TH BGM",
+    title: "Association 4th BGM",
     date: "2019",
     year: 2019,
-    category: "meeting",
+    category: "Meeting",
     description: "4th Annual General Meeting of the temple association",
-    images: [
-      {
-        src: "/placeholder.svg?key=bgm-2019-1",
-        alt: "4th BGM - Meeting",
-      },
-      {
-        src: "/placeholder.svg?key=bgm-2019-2",
-        alt: "4th BGM - Attendees",
-      },
-    ],
+    image: "/placeholder.svg?key=bgm-2019-1",
+    count: 2,
   },
   {
     id: "site-visit",
-    title: "SITE VISIT BY BHADRACHALAM PRADANA ARCHAKULU",
+    title: "Site Visit by Bhadrachalam Pradana Archakulu",
     date: "2018-2019",
     year: 2018,
-    category: "event",
+    category: "Event",
     description: "Visit by the head priest from Bhadrachalam temple",
-    images: [
-      {
-        src: "/placeholder.svg?key=site-visit-1",
-        alt: "Site Visit - Bhadrachalam Priests",
-      },
-      {
-        src: "/placeholder.svg?key=site-visit-2",
-        alt: "Site Visit - Ceremony",
-      },
-      {
-        src: "/placeholder.svg?key=site-visit-3",
-        alt: "Site Visit - Blessings",
-      },
-    ],
+    image: "/placeholder.svg?key=site-visit-1",
+    count: 3,
   },
   {
     id: "boomi-pooja",
-    title: "BOOMI POOJA",
+    title: "Boomi Pooja",
     date: "2018",
     year: 2018,
-    category: "ceremony",
+    category: "Ceremony",
     description: "Ground-breaking ceremony for the temple construction",
-    images: [
-      {
-        src: "/placeholder.svg?key=boomi-pooja-1",
-        alt: "Boomi Pooja - Ceremony",
-      },
-      {
-        src: "/placeholder.svg?key=boomi-pooja-2",
-        alt: "Boomi Pooja - Rituals",
-      },
-      {
-        src: "/placeholder.svg?key=boomi-pooja-3",
-        alt: "Boomi Pooja - Attendees",
-      },
-      {
-        src: "/placeholder.svg?key=boomi-pooja-4",
-        alt: "Boomi Pooja - Site",
-      },
-    ],
+    image: "/placeholder.svg?key=boomi-pooja-1",
+    count: 4,
   },
   {
     id: "sita-navami-2018",
-    title: "SITA NAVAMI",
+    title: "Sita Navami",
     date: "2018",
     year: 2018,
-    category: "ceremony",
+    category: "Ceremony",
     description: "Celebration of Sita Navami",
-    images: [
-      {
-        src: "/placeholder.svg?key=sita-navami-2018-1",
-        alt: "Sita Navami 2018 - Ceremony",
-      },
-      {
-        src: "/placeholder.svg?key=sita-navami-2018-2",
-        alt: "Sita Navami 2018 - Devotees",
-      },
-    ],
+    image: "/placeholder.svg?key=sita-navami-2018-1",
+    count: 2,
   },
   {
     id: "kalyana-2018",
-    title: "BHADRACHALA SRI SITARAMA KALYANA MAHOTSVAM",
+    title: "Bhadrachala Sri Sitarama Kalyana Mahotsvam",
     date: "2018",
     year: 2018,
-    category: "ceremony",
+    category: "Ceremony",
     description: "Special Bhadrachala style celestial wedding ceremony",
-    images: [
-      {
-        src: "/placeholder.svg?key=kalyana-2018-1",
-        alt: "Bhadrachala Sri Sitarama Kalyana Mahotsvam 2018 - Ceremony",
-      },
-      {
-        src: "/placeholder.svg?key=kalyana-2018-2",
-        alt: "Bhadrachala Sri Sitarama Kalyana Mahotsvam 2018 - Devotees",
-      },
-      {
-        src: "/placeholder.svg?key=kalyana-2018-3",
-        alt: "Bhadrachala Sri Sitarama Kalyana Mahotsvam 2018 - Decorations",
-      },
-    ],
+    image: "/placeholder.svg?key=kalyana-2018-1",
+    count: 3,
   },
   {
     id: "kalyana-2017",
-    title: "SRI SITARAMA KALYANA MAHOTSVAM",
+    title: "Sri Sitarama Kalyana Mahotsvam",
     date: "2017",
     year: 2017,
-    category: "ceremony",
+    category: "Ceremony",
     description: "Annual celestial wedding ceremony",
-    images: [
-      {
-        src: "/placeholder.svg?key=kalyana-2017-1",
-        alt: "Sri Sitarama Kalyana Mahotsvam 2017 - Ceremony",
-      },
-      {
-        src: "/placeholder.svg?key=kalyana-2017-2",
-        alt: "Sri Sitarama Kalyana Mahotsvam 2017 - Devotees",
-      },
-    ],
+    image: "/placeholder.svg?key=kalyana-2017-1",
+    count: 2,
   },
   {
     id: "kalyana-2016",
-    title: "SRI SITARAMA KALYANA MAHOTSVAM",
+    title: "Sri Sitarama Kalyana Mahotsvam",
     date: "2016",
     year: 2016,
-    category: "ceremony",
+    category: "Ceremony",
     description: "Annual celestial wedding ceremony",
-    images: [
-      {
-        src: "/placeholder.svg?key=kalyana-2016-1",
-        alt: "Sri Sitarama Kalyana Mahotsvam 2016 - Ceremony",
-      },
-      {
-        src: "/placeholder.svg?key=kalyana-2016-2",
-        alt: "Sri Sitarama Kalyana Mahotsvam 2016 - Devotees",
-      },
-    ],
+    image: "/placeholder.svg?key=kalyana-2016-1",
+    count: 2,
   },
   {
     id: "kalyana-2015",
-    title: "SRI SITARAMA KALYANA MAHOTSVAM",
+    title: "Sri Sitarama Kalyana Mahotsvam",
     date: "2015",
     year: 2015,
-    category: "ceremony",
+    category: "Ceremony",
     description: "Annual celestial wedding ceremony",
-    images: [
-      {
-        src: "/placeholder.svg?key=kalyana-2015-1",
-        alt: "Sri Sitarama Kalyana Mahotsvam 2015 - Ceremony",
-      },
-      {
-        src: "/placeholder.svg?key=kalyana-2015-2",
-        alt: "Sri Sitarama Kalyana Mahotsvam 2015 - Devotees",
-      },
-    ],
+    image: "/placeholder.svg?key=kalyana-2015-1",
+    count: 2,
   },
 ]
 
 export default function GalleryPage() {
   return (
-    <div className="container mx-auto px-4 py-12">
+    <>
       {/* Hero Section */}
-      <div className="relative w-full h-[250px] md:h-[300px] mb-12 rounded-lg overflow-hidden">
+      <section className="relative h-[60vh] min-h-[500px] overflow-hidden">
         <Image
-          src="/placeholder.svg?key=gallery-hero"
-          alt="Sri Vaikuntta Sita Rama Devalayammu Gallery"
+          src="https://www.srivaikunttasitarama.com/wp-content/uploads/2021/10/External-View-2-scaled.jpg"
+          alt="Sri Vaikuntta Sita Rama Devalayammu"
           fill
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-8">
-          <h1 className="text-3xl md:text-5xl font-bold text-white mb-2">Photo Gallery</h1>
-          <p className="text-xl text-white/90">{`Memories of our temple's journey`}</p>
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/20" />
+        
+        <div className="relative z-10 h-full flex items-end">
+          <div className="mx-auto max-w-7xl px-6 pb-20 w-full">
+            <motion.div
+              initial="initial"
+              animate="animate"
+              variants={staggerContainer}
+              className="max-w-3xl space-y-4"
+            >
+              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 rounded-full bg-accent/10 backdrop-blur-sm px-4 py-1.5 border border-accent/20">
+                <Camera className="h-4 w-4 text-accent" />
+                <span className="text-sm font-medium text-white">Memories</span>
+              </motion.div>
+              
+              <motion.h1 variants={fadeInUp} className="text-5xl md:text-6xl font-bold text-white leading-tight">
+                Photo Gallery
+              </motion.h1>
+              
+              <motion.p variants={fadeInUp} className="text-xl text-white/90 leading-relaxed">
+                Capturing our temple's sacred journey
+              </motion.p>
+            </motion.div>
+          </div>
         </div>
-      </div>
-
-
+      </section>
 
       {/* Gallery Grid */}
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {galleryEvents.map((event) => (
-            <Card key={event.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-              <div className="relative h-64">
-                <Image
-                  src={event.images[0].src || "/placeholder.svg"}
-                  alt={event.images[0].alt}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <CardContent className="p-4">
-                <h3 className="text-lg font-bold text-gray-900 mb-1">{event.title}</h3>
-                <p className="text-sm text-gray-500 mb-2">{event.date}</p>
-                <p className="text-sm text-gray-700">{event.description}</p>
-                <div className="mt-3 flex justify-between items-center">
-                  <span className="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded-full">
-                    {event.images.length} photos
-                  </span>
-                  <a
-                    href={`/gallery/${event.id}`}
-                    className="text-orange-600 hover:text-orange-700 text-sm font-medium"
-                  >
-                    View Album
-                  </a>
+      <section className="py-24 px-6">
+        <div className="mx-auto max-w-7xl">
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={staggerContainer}
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+          >
+            {galleryEvents.map((event) => (
+              <motion.div
+                key={event.id}
+                variants={fadeInUp}
+                className="group relative overflow-hidden rounded-2xl bg-secondary/30 border border-border/50 hover:shadow-lg transition-all"
+              >
+                <div className="relative h-64 overflow-hidden">
+                  <Image
+                    src={event.image}
+                    alt={event.title}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  
+                  <div className="absolute top-3 right-3">
+                    <div className="rounded-xl bg-background/90 backdrop-blur-sm px-3 py-1.5 border border-border/50">
+                      <span className="text-xs font-medium">{event.count} photos</span>
+                    </div>
+                  </div>
                 </div>
-              </CardContent>
-            </Card>
-          ))}
+                
+                <div className="p-6 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <div className="rounded-lg bg-accent/10 px-3 py-1">
+                      <span className="text-xs font-semibold text-accent">{event.category}</span>
+                    </div>
+                    <div className="flex items-center gap-1.5 text-muted-foreground">
+                      <Calendar className="h-3.5 w-3.5" />
+                      <span className="text-xs">{event.date}</span>
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-lg font-semibold leading-tight">{event.title}</h3>
+                  
+                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                    {event.description}
+                  </p>
+                  
+                  <button className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors pt-2">
+                    View Album
+                    <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
-      </div>
-    </div>
+      </section>
+
+      {/* Note Section */}
+      <section className="py-16 px-6 bg-secondary/30">
+        <div className="mx-auto max-w-4xl">
+          <motion.div
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center p-8 rounded-2xl bg-background border border-border/50"
+          >
+            <Camera className="h-12 w-12 text-accent mx-auto mb-4" />
+            <h3 className="text-xl font-semibold mb-2">More Memories Coming Soon</h3>
+            <p className="text-muted-foreground">
+              We're continuously updating our gallery with photos from various events and ceremonies. Check back regularly for new additions.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+    </>
   )
 }
