@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronRight, ChevronLeft, ArrowRight, Sparkles } from "lucide-react";
@@ -46,100 +46,77 @@ const staggerContainer = {
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isAnimating) {
-        nextSlide();
-      }
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [currentSlide, isAnimating]);
 
   const nextSlide = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
     setCurrentSlide((prev) =>
       prev === carouselImages.length - 1 ? 0 : prev + 1
     );
-    setTimeout(() => setIsAnimating(false), 500);
   };
 
   const prevSlide = () => {
-    if (isAnimating) return;
-    setIsAnimating(true);
     setCurrentSlide((prev) =>
       prev === 0 ? carouselImages.length - 1 : prev - 1
     );
-    setTimeout(() => setIsAnimating(false), 500);
   };
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) =>
+        prev === carouselImages.length - 1 ? 0 : prev + 1
+      );
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <>
       {/* Hero Section with Carousel */}
-      <section className="relative h-screen overflow-hidden">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentSlide}
-            initial={{ opacity: 0, scale: 1.1 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0"
+      <section className="relative h-screen overflow-hidden bg-zinc-900">
+        {/* Render all images, only show current one */}
+        {carouselImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"
+            }`}
           >
             <Image
-              src={carouselImages[currentSlide].src}
-              alt={carouselImages[currentSlide].alt}
+              src={image.src}
+              alt={image.alt}
               fill
               className="object-cover"
-              priority
+              priority={index === 0}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-          </motion.div>
-        </AnimatePresence>
+          </div>
+        ))}
 
         {/* Hero Content */}
-        <div className="relative z-10 h-full flex items-end">
+        <div className="relative z-20 h-full flex items-end">
           <div className="mx-auto max-w-7xl px-6 pb-32 w-full">
-            <motion.div
-              initial="initial"
-              animate="animate"
-              variants={staggerContainer}
-              className="max-w-3xl space-y-6"
-            >
-              <motion.div
-                variants={fadeInUp}
-                className="inline-flex items-center gap-2 rounded-full bg-accent/10 backdrop-blur-sm px-4 py-2 border border-accent/20"
-              >
+            <div className="max-w-3xl space-y-6">
+              <div className="inline-flex items-center gap-2 rounded-full bg-accent/10 backdrop-blur-sm px-4 py-2 border border-accent/20">
                 <Sparkles className="h-4 w-4 text-accent" />
                 <span className="text-sm font-medium text-white">
                   Shah Alam, Malaysia
                 </span>
-              </motion.div>
+              </div>
 
-              <motion.h1
-                variants={fadeInUp}
-                className="text-5xl md:text-7xl font-bold text-white leading-tight"
-              >
-                {carouselImages[currentSlide].title}
-              </motion.h1>
+              <div className="space-y-3">
+                <h1 className="text-xl sm:text-3xl md:text-4xl font-bold text-white leading-tight transition-opacity duration-500">
+                  {carouselImages[currentSlide].title}
+                </h1>
 
-              <motion.p
-                variants={fadeInUp}
-                className="text-xl text-white/80 leading-relaxed"
-              >
-                {carouselImages[currentSlide].subtitle}
-              </motion.p>
+                <p className="text-xl text-white/90 leading-relaxed transition-opacity duration-500">
+                  {carouselImages[currentSlide].subtitle}
+                </p>
+              </div>
 
-              <motion.div
-                variants={fadeInUp}
-                className="flex flex-wrap gap-4 pt-4"
-              >
+              <div className="flex flex-wrap gap-4 pt-4">
                 <Link href="/about">
                   <Button
                     size="lg"
-                    className="bg-accent hover:bg-accent/90 text-accent-foreground group"
+                    className="backdrop-blur-md border-white/20 text-white hover:bg-white/10"
                   >
                     Learn More
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -154,8 +131,8 @@ export default function Home() {
                     Support Us
                   </Button>
                 </Link>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -172,11 +149,7 @@ export default function Home() {
             {carouselImages.map((_, index) => (
               <button
                 key={index}
-                onClick={() => {
-                  setIsAnimating(true);
-                  setCurrentSlide(index);
-                  setTimeout(() => setIsAnimating(false), 500);
-                }}
+                onClick={() => setCurrentSlide(index)}
                 className={`h-1.5 rounded-full transition-all ${
                   index === currentSlide ? "w-8 bg-accent" : "w-1.5 bg-white/40"
                 }`}
@@ -323,8 +296,8 @@ export default function Home() {
                 },
               ].map((item, index) => (
                 <motion.div key={index} variants={fadeInUp}>
-                  <Card className="overflow-hidden group cursor-pointer h-full">
-                    <div className="relative aspect-[4/3] overflow-hidden">
+                  <Card className="overflow-hidden group cursor-pointer h-full border-border p-0 gap-0">
+                    <div className="relative aspect-[4/3] overflow-hidden bg-secondary">
                       <Image
                         src={item.img}
                         alt={item.title}
@@ -332,7 +305,7 @@ export default function Home() {
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                     </div>
-                    <CardContent className="space-y-3">
+                    <CardContent className="p-6 space-y-3">
                       <h3 className="text-xl font-semibold">{item.title}</h3>
                       <p className="text-sm text-muted-foreground leading-relaxed">
                         {item.desc}
