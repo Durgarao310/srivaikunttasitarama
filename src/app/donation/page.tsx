@@ -22,66 +22,6 @@ const staggerContainer = {
   },
 };
 
-const donationItems = [
-  {
-    id: "brc-a7",
-    name: "BRC A7",
-    price: 200.0,
-    image: "/donations/brc-a7.jpg",
-    description: "Steel reinforcement mesh for construction",
-  },
-  {
-    id: "cement-bags",
-    name: "Cement Bags",
-    price: 25.0,
-    image: "/donations/cement.jpg",
-    description: "High-quality cement for temple construction",
-  },
-  {
-    id: "concrete",
-    name: "Concrete",
-    price: 300.0,
-    image: "/donations/concrete.jpg",
-    description: "Ready-mix concrete for foundation",
-  },
-  {
-    id: "pallet-bricks",
-    name: "Pallet Bricks",
-    price: 300.0,
-    image: "/donations/bricks.jpg",
-    description: "Traditional bricks for temple structure",
-  },
-  {
-    id: "plywood",
-    name: "Plywood",
-    price: 60.0,
-    image: "/donations/plywood.jpg",
-    description: "Quality plywood for temple construction",
-  },
-  {
-    id: "sand",
-    name: "Sand",
-    price: 750.0,
-    image: "/donations/sand.jpg",
-    description: "Fine sand for construction purposes",
-  },
-  {
-    id: "lucky-draw",
-    name: "Sitarama Lucky Draw",
-    price: 10.0,
-    image: "/donations/lucky-draw.jpg",
-    description: "Support the temple and win prizes",
-    featured: true,
-  },
-  {
-    id: "steel-rod",
-    name: "Steel Rod",
-    price: 400.0,
-    image: "/donations/steel-rod.jpg",
-    description: "Reinforcement steel rods for structure",
-  },
-];
-
 interface CartItem {
   id: string;
   name: string;
@@ -98,10 +38,34 @@ interface DonationItem {
   image: string;
   description: string;
   featured?: boolean;
+  category?: string;
+  stock?: number;
 }
 
 export default function DonationPage() {
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [donationItems, setDonationItems] = useState<DonationItem[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch donation items from API
+  useEffect(() => {
+    const fetchDonationItems = async () => {
+      try {
+        const response = await fetch("/api/donations");
+        const result = await response.json();
+
+        if (result.success) {
+          setDonationItems(result.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch donation items:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDonationItems();
+  }, []);
 
   useEffect(() => {
     // Load cart from localStorage
@@ -295,98 +259,115 @@ export default function DonationPage() {
               </div>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {donationItems.map((item) => (
-                <motion.div key={item.id} variants={fadeInUp}>
-                  <Card
-                    className={`p-0 gap-0 h-full ${
-                      item.featured
-                        ? "border-accent/50 shadow-lg"
-                        : "border-border"
-                    }`}
-                  >
-                    <div className="relative aspect-square overflow-hidden bg-secondary rounded-t-2xl">
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        className="object-cover group-hover:scale-105 transition-transform duration-700"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
-                        priority={item.featured}
-                      />
-                      {item.featured && (
-                        <div className="absolute top-3 right-3">
-                          <span className="px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-medium">
-                            Featured
-                          </span>
-                        </div>
-                      )}
-                    </div>
+            {loading ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+                  <Card key={i} className="p-0 gap-0 h-full animate-pulse">
+                    <div className="aspect-square bg-secondary rounded-t-2xl" />
                     <CardContent className="p-6 space-y-4">
-                      <div className="space-y-2">
-                        <h3 className="text-xl font-semibold">{item.name}</h3>
-                        <p className="text-sm text-muted-foreground">
-                          {item.description}
-                        </p>
+                      <div className="h-6 bg-secondary rounded w-3/4" />
+                      <div className="h-4 bg-secondary rounded w-full" />
+                      <div className="h-8 bg-secondary rounded w-1/2" />
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {donationItems.map((item) => (
+                  <motion.div key={item.id} variants={fadeInUp}>
+                    <Card
+                      className={`p-0 gap-0 h-full ${
+                        item.featured
+                          ? "border-accent/50 shadow-lg"
+                          : "border-border"
+                      }`}
+                    >
+                      <div className="relative aspect-square overflow-hidden bg-secondary rounded-t-2xl">
+                        <Image
+                          src={item.image}
+                          alt={item.name}
+                          fill
+                          className="object-cover group-hover:scale-105 transition-transform duration-700"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                          priority={item.featured}
+                        />
+                        {item.featured && (
+                          <div className="absolute top-3 right-3">
+                            <span className="px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-medium">
+                              Featured
+                            </span>
+                          </div>
+                        )}
                       </div>
-
-                      <div className="flex items-center justify-between pt-2 border-t border-border/50">
-                        <div>
-                          <p className="text-xs text-muted-foreground">Price</p>
-                          <p className="text-2xl font-bold text-accent">
-                            RM {item.price.toFixed(2)}
+                      <CardContent className="p-6 space-y-4">
+                        <div className="space-y-2">
+                          <h3 className="text-xl font-semibold">{item.name}</h3>
+                          <p className="text-sm text-muted-foreground">
+                            {item.description}
                           </p>
                         </div>
 
-                        {isInCart(item.id) ? (
-                          <div className="flex flex-col gap-2">
-                            <div className="flex items-center gap-2 bg-secondary rounded-lg p-1">
+                        <div className="flex items-center justify-between pt-2 border-t border-border/50">
+                          <div>
+                            <p className="text-xs text-muted-foreground">
+                              Price
+                            </p>
+                            <p className="text-2xl font-bold text-accent">
+                              RM {item.price.toFixed(2)}
+                            </p>
+                          </div>
+
+                          {isInCart(item.id) ? (
+                            <div className="flex flex-col gap-2">
+                              <div className="flex items-center gap-2 bg-secondary rounded-lg p-1">
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  onClick={() => updateQuantity(item.id, -1)}
+                                  className="h-8 w-8 p-0"
+                                >
+                                  <Minus className="h-4 w-4" />
+                                </Button>
+                                <span className="min-w-[2ch] text-center font-semibold">
+                                  {getCartItem(item.id)?.quantity}
+                                </span>
+                                <Button
+                                  size="sm"
+                                  variant="ghost"
+                                  onClick={() => updateQuantity(item.id, 1)}
+                                  className="h-8 w-8 p-0"
+                                >
+                                  <Plus className="h-4 w-4" />
+                                </Button>
+                              </div>
                               <Button
                                 size="sm"
-                                variant="ghost"
-                                onClick={() => updateQuantity(item.id, -1)}
-                                className="h-8 w-8 p-0"
+                                variant="destructive"
+                                onClick={() => removeFromCart(item.id)}
+                                className="w-full"
                               >
-                                <Minus className="h-4 w-4" />
-                              </Button>
-                              <span className="min-w-[2ch] text-center font-semibold">
-                                {getCartItem(item.id)?.quantity}
-                              </span>
-                              <Button
-                                size="sm"
-                                variant="ghost"
-                                onClick={() => updateQuantity(item.id, 1)}
-                                className="h-8 w-8 p-0"
-                              >
-                                <Plus className="h-4 w-4" />
+                                <Trash2 className="h-4 w-4 mr-2" />
+                                Remove
                               </Button>
                             </div>
+                          ) : (
                             <Button
-                              size="sm"
-                              variant="destructive"
-                              onClick={() => removeFromCart(item.id)}
-                              className="w-full"
+                              size="lg"
+                              onClick={() => addToCart(item)}
+                              className="bg-accent hover:bg-accent/90 text-accent-foreground"
                             >
-                              <Trash2 className="h-4 w-4 mr-2" />
-                              Remove
+                              <ShoppingCart className="h-4 w-4 mr-2" />
+                              Add to Cart
                             </Button>
-                          </div>
-                        ) : (
-                          <Button
-                            size="lg"
-                            onClick={() => addToCart(item)}
-                            className="bg-accent hover:bg-accent/90 text-accent-foreground"
-                          >
-                            <ShoppingCart className="h-4 w-4 mr-2" />
-                            Add to Cart
-                          </Button>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
+            )}
           </motion.div>
         </div>
       </section>
