@@ -113,7 +113,9 @@ export default function DonationPage() {
   }, []);
 
   const addToCart = (item: DonationItem) => {
-    const existingCart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
+    const existingCart: CartItem[] = JSON.parse(
+      localStorage.getItem("cart") || "[]"
+    );
     const existingItem = existingCart.find((i) => i.id === item.id);
 
     let newCart: CartItem[];

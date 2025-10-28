@@ -32,11 +32,10 @@ export default function Header() {
   useEffect(() => {
     // Update cart count from localStorage
     const updateCartCount = () => {
-      const cart: Array<{ quantity: number }> = JSON.parse(localStorage.getItem("cart") || "[]");
-      const count = cart.reduce(
-        (sum: number, item) => sum + item.quantity,
-        0
+      const cart: Array<{ quantity: number }> = JSON.parse(
+        localStorage.getItem("cart") || "[]"
       );
+      const count = cart.reduce((sum: number, item) => sum + item.quantity, 0);
       setCartCount(count);
     };
 

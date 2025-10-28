@@ -1,25 +1,32 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { motion } from "framer-motion"
-import { Mail, Phone, MapPin, Facebook, ExternalLink, Clock } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
+import Image from "next/image";
+import { motion } from "framer-motion";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Facebook,
+  ExternalLink,
+  Clock,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 40 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-}
+  transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+};
 
 const staggerContainer = {
   animate: {
     transition: {
-      staggerChildren: 0.1
-    }
-  }
-}
+      staggerChildren: 0.1,
+    },
+  },
+};
 
 export default function ContactPage() {
   return (
@@ -34,7 +41,7 @@ export default function ContactPage() {
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-background/20" />
-        
+
         <div className="relative z-10 h-full flex items-end">
           <div className="mx-auto max-w-7xl px-6 pb-20 w-full">
             <motion.div
@@ -43,16 +50,27 @@ export default function ContactPage() {
               variants={staggerContainer}
               className="max-w-3xl space-y-4"
             >
-              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 rounded-full bg-accent/10 backdrop-blur-sm px-4 py-1.5 border border-accent/20">
+              <motion.div
+                variants={fadeInUp}
+                className="inline-flex items-center gap-2 rounded-full bg-accent/10 backdrop-blur-sm px-4 py-1.5 border border-accent/20"
+              >
                 <Mail className="h-4 w-4 text-accent" />
-                <span className="text-sm font-medium text-white">Get in Touch</span>
+                <span className="text-sm font-medium text-white">
+                  Get in Touch
+                </span>
               </motion.div>
-              
-              <motion.h1 variants={fadeInUp} className="text-5xl md:text-6xl font-bold text-white leading-tight">
+
+              <motion.h1
+                variants={fadeInUp}
+                className="text-5xl md:text-6xl font-bold text-white leading-tight"
+              >
                 Contact Us
               </motion.h1>
-              
-              <motion.p variants={fadeInUp} className="text-xl text-white/90 leading-relaxed">
+
+              <motion.p
+                variants={fadeInUp}
+                className="text-xl text-white/90 leading-relaxed"
+              >
                 We&apos;d love to hear from you
               </motion.p>
             </motion.div>
@@ -81,7 +99,10 @@ export default function ContactPage() {
 
               <div className="space-y-6">
                 {/* Address */}
-                <motion.div variants={fadeInUp} className="flex items-start gap-4 p-6 rounded-2xl bg-secondary/30 border border-border/50 hover:shadow-md transition-all">
+                <motion.div
+                  variants={fadeInUp}
+                  className="flex items-start gap-4 p-6 rounded-2xl bg-secondary/30 border border-border/50 hover:shadow-md transition-all"
+                >
                   <div className="p-3 rounded-xl bg-accent/10 flex-shrink-0">
                     <MapPin className="h-6 w-6 text-accent" />
                   </div>
@@ -96,7 +117,10 @@ export default function ContactPage() {
                 </motion.div>
 
                 {/* Phone */}
-                <motion.div variants={fadeInUp} className="flex items-start gap-4 p-6 rounded-2xl bg-secondary/30 border border-border/50 hover:shadow-md transition-all">
+                <motion.div
+                  variants={fadeInUp}
+                  className="flex items-start gap-4 p-6 rounded-2xl bg-secondary/30 border border-border/50 hover:shadow-md transition-all"
+                >
                   <div className="p-3 rounded-xl bg-accent/10 flex-shrink-0">
                     <Phone className="h-6 w-6 text-accent" />
                   </div>
@@ -112,7 +136,10 @@ export default function ContactPage() {
                 </motion.div>
 
                 {/* Email */}
-                <motion.div variants={fadeInUp} className="flex items-start gap-4 p-6 rounded-2xl bg-secondary/30 border border-border/50 hover:shadow-md transition-all">
+                <motion.div
+                  variants={fadeInUp}
+                  className="flex items-start gap-4 p-6 rounded-2xl bg-secondary/30 border border-border/50 hover:shadow-md transition-all"
+                >
                   <div className="p-3 rounded-xl bg-accent/10 flex-shrink-0">
                     <Mail className="h-6 w-6 text-accent" />
                   </div>
@@ -128,7 +155,10 @@ export default function ContactPage() {
                 </motion.div>
 
                 {/* Social Media */}
-                <motion.div variants={fadeInUp} className="flex items-start gap-4 p-6 rounded-2xl bg-secondary/30 border border-border/50 hover:shadow-md transition-all">
+                <motion.div
+                  variants={fadeInUp}
+                  className="flex items-start gap-4 p-6 rounded-2xl bg-secondary/30 border border-border/50 hover:shadow-md transition-all"
+                >
                   <div className="p-3 rounded-xl bg-accent/10 flex-shrink-0">
                     <Facebook className="h-6 w-6 text-accent" />
                   </div>
@@ -147,15 +177,21 @@ export default function ContactPage() {
                 </motion.div>
 
                 {/* Visiting Hours */}
-                <motion.div variants={fadeInUp} className="p-6 rounded-2xl bg-accent/5 border border-accent/20">
+                <motion.div
+                  variants={fadeInUp}
+                  className="p-6 rounded-2xl bg-accent/5 border border-accent/20"
+                >
                   <div className="flex items-center gap-3 mb-3">
                     <div className="p-2 rounded-xl bg-accent/10">
                       <Clock className="h-5 w-5 text-accent" />
                     </div>
-                    <h3 className="font-semibold text-lg">Temple Visiting Hours</h3>
+                    <h3 className="font-semibold text-lg">
+                      Temple Visiting Hours
+                    </h3>
                   </div>
                   <p className="text-muted-foreground leading-relaxed">
-                    The temple is open daily from <strong>7:00 AM to 8:00 PM</strong>.
+                    The temple is open daily from{" "}
+                    <strong>7:00 AM to 8:00 PM</strong>.
                     <br />
                     Special ceremonies and events may have different timings.
                   </p>
@@ -265,17 +301,28 @@ export default function ContactPage() {
             className="space-y-8"
           >
             <div className="text-center space-y-4">
-              <motion.div variants={fadeInUp} className="inline-flex items-center gap-2 rounded-full bg-background px-4 py-1.5">
+              <motion.div
+                variants={fadeInUp}
+                className="inline-flex items-center gap-2 rounded-full bg-background px-4 py-1.5"
+              >
                 <MapPin className="h-4 w-4 text-accent" />
-                <span className="text-sm font-medium text-muted-foreground">Find Us</span>
+                <span className="text-sm font-medium text-muted-foreground">
+                  Find Us
+                </span>
               </motion.div>
-              
-              <motion.h2 variants={fadeInUp} className="text-3xl md:text-4xl font-bold">
+
+              <motion.h2
+                variants={fadeInUp}
+                className="text-3xl md:text-4xl font-bold"
+              >
                 Our Location
               </motion.h2>
             </div>
 
-            <motion.div variants={fadeInUp} className="aspect-video rounded-2xl overflow-hidden shadow-lg">
+            <motion.div
+              variants={fadeInUp}
+              className="aspect-video rounded-2xl overflow-hidden shadow-lg"
+            >
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3984.159090538865!2d101.51091057426947!3d3.052046053743346!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31cc534b6af6abe9%3A0x5cbf9a12cb72ca6c!2sSRI%20VAIKUNTTA%20SITARAMA%20DEVALAYAM%20SHAH%20ALAM!5e0!3m2!1sen!2sin!4v1747403727501!5m2!1sen!2sin"
                 className="w-full h-full"
@@ -300,5 +347,5 @@ export default function ContactPage() {
         </div>
       </section>
     </>
-  )
+  );
 }
