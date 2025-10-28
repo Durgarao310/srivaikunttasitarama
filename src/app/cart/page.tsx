@@ -14,6 +14,15 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 40 },
@@ -41,6 +50,7 @@ interface CartItem {
 export default function CartPage() {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   useEffect(() => {
     // Load cart from localStorage
@@ -72,9 +82,8 @@ export default function CartPage() {
   };
 
   const clearCart = () => {
-    if (confirm("Are you sure you want to clear the cart?")) {
-      setCartItems([]);
-    }
+    setCartItems([]);
+    setIsDialogOpen(false);
   };
 
   const subtotal = cartItems.reduce(
@@ -179,14 +188,37 @@ export default function CartPage() {
                   <h2 className="text-2xl font-bold">
                     Cart Items ({cartItems.length})
                   </h2>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={clearCart}
-                    className="text-destructive hover:text-destructive"
-                  >
-                    Clear Cart
-                  </Button>
+                  <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                    <DialogTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-destructive hover:text-destructive"
+                      >
+                        Clear Cart
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>Clear Cart?</DialogTitle>
+                        <DialogDescription>
+                          Are you sure you want to remove all items from your
+                          cart? This action cannot be undone.
+                        </DialogDescription>
+                      </DialogHeader>
+                      <DialogFooter>
+                        <Button
+                          variant="outline"
+                          onClick={() => setIsDialogOpen(false)}
+                        >
+                          Cancel
+                        </Button>
+                        <Button variant="destructive" onClick={clearCart}>
+                          Clear Cart
+                        </Button>
+                      </DialogFooter>
+                    </DialogContent>
+                  </Dialog>
                 </div>
 
                 <div className="space-y-4">
