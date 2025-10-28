@@ -233,12 +233,13 @@ export default function CartPage() {
                         <CardContent className="p-4">
                           <div className="grid md:grid-cols-[120px_1fr_auto] gap-4">
                             {/* Image */}
-                            <div className="relative aspect-square rounded-xl overflow-hidden bg-secondary">
+                            <div className="relative aspect-square rounded-2xl overflow-hidden bg-secondary">
                               <Image
                                 src={item.image}
                                 alt={item.name}
                                 fill
                                 className="object-cover"
+                                sizes="120px"
                               />
                             </div>
 

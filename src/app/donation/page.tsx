@@ -305,12 +305,14 @@ export default function DonationPage() {
                         : "border-border"
                     }`}
                   >
-                    <div className="relative aspect-square overflow-hidden bg-secondary">
+                    <div className="relative aspect-square overflow-hidden bg-secondary rounded-t-2xl">
                       <Image
                         src={item.image}
                         alt={item.name}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-700"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                        priority={item.featured}
                       />
                       {item.featured && (
                         <div className="absolute top-3 right-3">
