@@ -21,12 +21,18 @@ export default function CreateDonationPage() {
     stock: "",
     category: "",
     description: "",
-    image: "",
+    image: null as File | null,
   });
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFormData({ ...formData, image: e.target.files[0] });
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Save to API
+    // TODO: Upload image and save to API
     console.log("Create donation product:", formData);
     router.push("/admin/donations");
   };
@@ -38,8 +44,8 @@ export default function CreateDonationPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background py-8 px-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="w-full py-8 px-4">
+      <div className="w-full">
         {/* Header */}
         <motion.div {...fadeInUp} className="mb-8">
           <Link

@@ -71,8 +71,8 @@ export default function EditGalleryPage({ params }: PageProps) {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background py-8 px-4">
-        <div className="max-w-4xl mx-auto">
+      <div className="w-full py-8 px-4">
+        <div className="w-full">
           <div className="h-8 w-32 bg-secondary rounded animate-pulse mb-4" />
           <div className="h-12 w-64 bg-secondary rounded animate-pulse mb-8" />
           <div className="rounded-2xl bg-secondary/30 border border-border/50 p-8">
@@ -92,8 +92,8 @@ export default function EditGalleryPage({ params }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background py-8 px-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="w-full py-8 px-4">
+      <div className="w-full">
         {/* Header */}
         <motion.div {...fadeInUp} className="mb-8">
           <Link

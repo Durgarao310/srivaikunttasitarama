@@ -38,8 +38,8 @@ export default function CreateGalleryPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background py-8 px-4">
-      <div className="max-w-4xl mx-auto">
+    <div className="w-full py-8 px-4">
+      <div className="w-full">
         {/* Header */}
         <motion.div {...fadeInUp} className="mb-8">
           <Link
