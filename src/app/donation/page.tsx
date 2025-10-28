@@ -1,8 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { Sparkles, ShoppingCart, Plus } from "lucide-react";
+import { Sparkles, ShoppingCart, Check } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -80,7 +82,63 @@ const donationItems = [
   },
 ];
 
+interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+  image: string;
+  description: string;
+}
+
+interface DonationItem {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  description: string;
+  featured?: boolean;
+}
+
 export default function DonationPage() {
+  const [cart, setCart] = useState<CartItem[]>([]);
+  const [addedItems, setAddedItems] = useState<string[]>([]);
+
+  useEffect(() => {
+    // Load cart from localStorage
+    const savedCart = localStorage.getItem("cart");
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
+    }
+  }, []);
+
+  const addToCart = (item: DonationItem) => {
+    const existingCart: CartItem[] = JSON.parse(localStorage.getItem("cart") || "[]");
+    const existingItem = existingCart.find((i) => i.id === item.id);
+
+    let newCart: CartItem[];
+    if (existingItem) {
+      // Update quantity if item exists
+      newCart = existingCart.map((i) =>
+        i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+      );
+    } else {
+      // Add new item with quantity 1
+      newCart = [...existingCart, { ...item, quantity: 1 }];
+    }
+
+    localStorage.setItem("cart", JSON.stringify(newCart));
+    setCart(newCart);
+
+    // Show "Added" feedback
+    setAddedItems([...addedItems, item.id]);
+    setTimeout(() => {
+      setAddedItems(addedItems.filter((id) => id !== item.id));
+    }, 2000);
+  };
+
+  const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
   return (
     <>
       {/* Hero Section */}
@@ -172,16 +230,28 @@ export default function DonationPage() {
             className="space-y-12"
           >
             <motion.div variants={fadeInUp} className="text-center space-y-4">
-              <h2 className="text-3xl md:text-4xl font-bold">
-                Choose Your Contribution
-              </h2>
-              <p className="text-muted-foreground">
-                Select building materials to donate
-              </p>
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-3xl md:text-4xl font-bold">
+                    Choose Your Contribution
+                  </h2>
+                  <p className="text-muted-foreground">
+                    Select building materials to donate
+                  </p>
+                </div>
+                {cartItemCount > 0 && (
+                  <Link href="/cart">
+                    <Button variant="outline" className="gap-2">
+                      <ShoppingCart className="h-4 w-4" />
+                      View Cart ({cartItemCount})
+                    </Button>
+                  </Link>
+                )}
+              </div>
             </motion.div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {donationItems.map((item, index) => (
+              {donationItems.map((item) => (
                 <motion.div key={item.id} variants={fadeInUp}>
                   <Card
                     className={`p-0 gap-0 h-full ${
@@ -222,10 +292,24 @@ export default function DonationPage() {
                         </div>
                         <Button
                           size="lg"
-                          className="bg-accent hover:bg-accent/90 text-accent-foreground group"
+                          onClick={() => addToCart(item)}
+                          className={`group ${
+                            addedItems.includes(item.id)
+                              ? "bg-green-600 hover:bg-green-700"
+                              : "bg-accent hover:bg-accent/90"
+                          } text-accent-foreground`}
                         >
-                          <ShoppingCart className="h-4 w-4 mr-2" />
-                          Add to Cart
+                          {addedItems.includes(item.id) ? (
+                            <>
+                              <Check className="h-4 w-4 mr-2" />
+                              Added!
+                            </>
+                          ) : (
+                            <>
+                              <ShoppingCart className="h-4 w-4 mr-2" />
+                              Add to Cart
+                            </>
+                          )}
                         </Button>
                       </div>
                     </CardContent>

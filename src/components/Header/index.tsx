@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ShoppingCart } from "lucide-react";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -19,6 +19,7 @@ const navItems = [
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,6 +27,29 @@ export default function Header() {
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    // Update cart count from localStorage
+    const updateCartCount = () => {
+      const cart: Array<{ quantity: number }> = JSON.parse(localStorage.getItem("cart") || "[]");
+      const count = cart.reduce(
+        (sum: number, item) => sum + item.quantity,
+        0
+      );
+      setCartCount(count);
+    };
+
+    updateCartCount();
+
+    // Listen for cart updates
+    window.addEventListener("storage", updateCartCount);
+    const interval = setInterval(updateCartCount, 1000);
+
+    return () => {
+      window.removeEventListener("storage", updateCartCount);
+      clearInterval(interval);
+    };
   }, []);
 
   return (
@@ -70,6 +94,19 @@ export default function Header() {
 
           {/* Right Actions */}
           <div className="flex items-center gap-2">
+            {/* Cart Button */}
+            <Link href="/cart" className="hidden md:block relative">
+              <Button variant="outline" className="rounded-2xl gap-2">
+                <ShoppingCart className="h-4 w-4" />
+                <span className="hidden lg:inline">Cart</span>
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-accent text-accent-foreground text-xs flex items-center justify-center font-semibold">
+                    {cartCount}
+                  </span>
+                )}
+              </Button>
+            </Link>
+
             {/* Donate Button */}
             <Link href="/donation" className="hidden md:block">
               <Button className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-2xl shadow-sm">
@@ -125,10 +162,20 @@ export default function Header() {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: navItems.length * 0.05 }}
-                className="pt-4"
+                className="pt-4 space-y-3"
               >
+                <Link href="/cart" onClick={() => setIsMenuOpen(false)}>
+                  <Button
+                    variant="outline"
+                    className="w-full rounded-2xl h-12 gap-2"
+                  >
+                    <ShoppingCart className="h-4 w-4" />
+                    View Cart {cartCount > 0 && `(${cartCount})`}
+                  </Button>
+                </Link>
+
                 <Link href="/donation" onClick={() => setIsMenuOpen(false)}>
-                  <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground rounded-2xl">
+                  <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground rounded-2xl h-12">
                     Donate Now
                   </Button>
                 </Link>

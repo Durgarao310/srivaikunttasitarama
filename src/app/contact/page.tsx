@@ -53,7 +53,7 @@ export default function ContactPage() {
               </motion.h1>
               
               <motion.p variants={fadeInUp} className="text-xl text-white/90 leading-relaxed">
-                We'd love to hear from you
+                We&apos;d love to hear from you
               </motion.p>
             </motion.div>
           </div>
@@ -173,7 +173,7 @@ export default function ContactPage() {
               <motion.div variants={fadeInUp}>
                 <h2 className="text-3xl font-bold mb-2">Send a Message</h2>
                 <p className="text-muted-foreground mb-8">
-                  Fill out the form and we'll get back to you soon
+                  Fill out the form and we&apos;ll get back to you soon
                 </p>
               </motion.div>
 

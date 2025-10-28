@@ -213,7 +213,7 @@ export default function GalleryPage() {
               </motion.h1>
               
               <motion.p variants={fadeInUp} className="text-xl text-white/90 leading-relaxed">
-                Capturing our temple's sacred journey
+                Capturing our temple&apos;s sacred journey
               </motion.p>
             </motion.div>
           </div>
@@ -295,7 +295,7 @@ export default function GalleryPage() {
             <Camera className="h-12 w-12 text-accent mx-auto mb-4" />
             <h3 className="text-xl font-semibold mb-2">More Memories Coming Soon</h3>
             <p className="text-muted-foreground">
-              We're continuously updating our gallery with photos from various events and ceremonies. Check back regularly for new additions.
+              We&apos;re continuously updating our gallery with photos from various events and ceremonies. Check back regularly for new additions.
             </p>
           </motion.div>
         </div>

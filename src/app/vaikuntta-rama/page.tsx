@@ -112,7 +112,7 @@ export default function VaikunttaRamaPage() {
               
               <motion.div variants={fadeInUp} className="space-y-4 p-6 rounded-2xl bg-background">
                 <p className="text-muted-foreground leading-relaxed">
-                  Bhadra performed penance at the bank of river Godavari in "Dandakaranya" to receive the grace of Lord Rama. The exalted Rishi implored Rama to be seated on his head, but Lord Rama, who was in search of his consort Sita, gave promise to his Bhakta that his desire would be fulfilled on his way back after finding Sita and accomplishing the process of punishing the wicked Ravana and establishing Dharma.
+                  Bhadra performed penance at the bank of river Godavari in &quot;Dandakaranya&quot; to receive the grace of Lord Rama. The exalted Rishi implored Rama to be seated on his head, but Lord Rama, who was in search of his consort Sita, gave promise to his Bhakta that his desire would be fulfilled on his way back after finding Sita and accomplishing the process of punishing the wicked Ravana and establishing Dharma.
                 </p>
                 <p className="text-muted-foreground leading-relaxed">
                   However, Lord Rama did not fulfill his promise on his return from Lanka to Ayodhya. Meanwhile, Rishi Bhadra continued his penance, waiting for Lord Rama. After some time, when Bhagwan MahaVishnu realized this, HE manifested himself as VAIKUNTTA Rama and rushed to his devotee Bhadra, signaling his arrival by blowing Shanku, accompanied by his consort Sita and brother Laxmana, resembling that of Gajendra Moksham.
@@ -142,7 +142,7 @@ export default function VaikunttaRamaPage() {
               </p>
 
               <p className="text-muted-foreground leading-relaxed">
-                On one fine night, she had darshan of Lord Rama in her dream who said, "The saints and sages are worshiping my embodied moorthy settled on Bhadragiri" and asked her to trace them, perform pooja and attain salvation. The very next morning, she started searching for the idols and peered into an ant-hill where she found the idols hidden.
+                On one fine night, she had darshan of Lord Rama in her dream who said, &quot;The saints and sages are worshiping my embodied moorthy settled on Bhadragiri&quot; and asked her to trace them, perform pooja and attain salvation. The very next morning, she started searching for the idols and peered into an ant-hill where she found the idols hidden.
               </p>
 
               <p className="text-muted-foreground leading-relaxed">
@@ -181,7 +181,7 @@ export default function VaikunttaRamaPage() {
                 </p>
 
                 <p className="text-muted-foreground leading-relaxed">
-                  When contributions proved insufficient, Ramadas used 6 Lakhs from the land revenues without the Nawab's permission to complete the temple. As the temple neared completion, he faced a problem fixing the Sudarshana Chakra at the crest. In a dream, Lord Rama guided him to find it in the Godavari river, which he did the next morning.
+                  When contributions proved insufficient, Ramadas used 6 Lakhs from the land revenues without the Nawab&apos;s permission to complete the temple. As the temple neared completion, he faced a problem fixing the Sudarshana Chakra at the crest. In a dream, Lord Rama guided him to find it in the Godavari river, which he did the next morning.
                 </p>
               </motion.div>
               
@@ -213,19 +213,19 @@ export default function VaikunttaRamaPage() {
 
             <motion.div variants={fadeInUp} className="p-8 rounded-2xl bg-background space-y-4">
               <p className="text-muted-foreground leading-relaxed">
-                After the temple's construction, Ramadas faced severe consequences. He was dismissed from service for misusing revenue funds and imprisoned for 12 long years in Golkonda Fort, where he endured much torture. Unable to withstand the miseries, Ramadas implored Rama to relieve him by singing many praising and emotional songs, which became popularized as Dasaradhi Sathakam and Keertanas.
+                After the temple&apos;s construction, Ramadas faced severe consequences. He was dismissed from service for misusing revenue funds and imprisoned for 12 long years in Golkonda Fort, where he endured much torture. Unable to withstand the miseries, Ramadas implored Rama to relieve him by singing many praising and emotional songs, which became popularized as Dasaradhi Sathakam and Keertanas.
               </p>
 
               <p className="text-muted-foreground leading-relaxed">
-                The divine miracle occurred when Lord Rama and Laxmana themselves appeared before Nawab Tanishah as Ramoji and Laxmoji, claiming to be servants of Bhakta Ramadas. They repaid the 6 lakh Mohurs to secure his release from imprisonment. They gave a voucher to Tanishah and placed it under Gopanna's pillow in jail.
+                The divine miracle occurred when Lord Rama and Laxmana themselves appeared before Nawab Tanishah as Ramoji and Laxmoji, claiming to be servants of Bhakta Ramadas. They repaid the 6 lakh Mohurs to secure his release from imprisonment. They gave a voucher to Tanishah and placed it under Gopanna&apos;s pillow in jail.
               </p>
 
               <p className="text-muted-foreground leading-relaxed">
-                The next morning, Tanishah realized that those divine-looking persons were none other than Rama and Laxmana. He immediately arranged for Gopanna's release and begged forgiveness, placing all the Gold Mohurs at Gopanna's feet. Ramadas refused to take back the mohurs except for two, as a mark of divine significance. These two mohurs can still be seen at the Bhadrachala Sri Sita Ramachandra Swamy vaari Devasthanam.
+                The next morning, Tanishah realized that those divine-looking persons were none other than Rama and Laxmana. He immediately arranged for Gopanna&apos;s release and begged forgiveness, placing all the Gold Mohurs at Gopanna&apos;s feet. Ramadas refused to take back the mohurs except for two, as a mark of divine significance. These two mohurs can still be seen at the Bhadrachala Sri Sita Ramachandra Swamy vaari Devasthanam.
               </p>
 
               <p className="text-muted-foreground leading-relaxed">
-                Influenced by the majesty of Lord Rama, Golkonda Ruler Tanishah earmarked an income of Rs 20,000 from Palwoncha paragana for the temple's maintenance. He also began the tradition of offering Pearls (Mutyala Talambralu) during the Kalyana Mahotsavam (Sri Rama Navami) ceremony, a practice that continues to this day with the state government sending pearls during the Sri Rama Navami Festival.
+                Influenced by the majesty of Lord Rama, Golkonda Ruler Tanishah earmarked an income of Rs 20,000 from Palwoncha paragana for the temple&apos;s maintenance. He also began the tradition of offering Pearls (Mutyala Talambralu) during the Kalyana Mahotsavam (Sri Rama Navami) ceremony, a practice that continues to this day with the state government sending pearls during the Sri Rama Navami Festival.
               </p>
             </motion.div>
           </motion.div>
