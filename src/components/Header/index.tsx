@@ -94,12 +94,12 @@ export default function Header() {
           {/* Right Actions */}
           <div className="flex items-center gap-2">
             {/* Cart Button */}
-            <Link href="/cart" className="hidden md:block relative">
-              <Button variant="outline" className="rounded-2xl gap-2">
+            <Link href="/cart" className="hidden md:block">
+              <Button variant="outline" className="rounded-full gap-2 pr-2">
                 <ShoppingCart className="h-4 w-4" />
                 <span className="hidden lg:inline">Cart</span>
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 h-5 w-5 rounded-full bg-accent text-accent-foreground text-xs flex items-center justify-center font-semibold">
+                  <span className="ml-1 h-6 w-6 rounded-full bg-foreground text-background text-xs flex items-center justify-center font-semibold">
                     {cartCount}
                   </span>
                 )}
@@ -108,7 +108,7 @@ export default function Header() {
 
             {/* Donate Button */}
             <Link href="/donation" className="hidden md:block">
-              <Button className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-2xl shadow-sm">
+              <Button className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-full shadow-sm">
                 Donate
               </Button>
             </Link>

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Sparkles, ShoppingCart, Check } from "lucide-react";
+import { Sparkles, ShoppingCart, Trash2, Plus, Minus } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
@@ -102,15 +102,37 @@ interface DonationItem {
 
 export default function DonationPage() {
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [addedItems, setAddedItems] = useState<string[]>([]);
 
   useEffect(() => {
     // Load cart from localStorage
-    const savedCart = localStorage.getItem("cart");
-    if (savedCart) {
-      setCart(JSON.parse(savedCart));
-    }
+    const loadCart = () => {
+      const savedCart = localStorage.getItem("cart");
+      if (savedCart) {
+        setCart(JSON.parse(savedCart));
+      }
+    };
+
+    loadCart();
+
+    // Listen for storage changes (from other tabs or components)
+    window.addEventListener("storage", loadCart);
+
+    // Poll for cart updates (for same-tab updates)
+    const interval = setInterval(loadCart, 500);
+
+    return () => {
+      window.removeEventListener("storage", loadCart);
+      clearInterval(interval);
+    };
   }, []);
+
+  const isInCart = (itemId: string) => {
+    return cart.some((item) => item.id === itemId);
+  };
+
+  const getCartItem = (itemId: string) => {
+    return cart.find((item) => item.id === itemId);
+  };
 
   const addToCart = (item: DonationItem) => {
     const existingCart: CartItem[] = JSON.parse(
@@ -131,12 +153,33 @@ export default function DonationPage() {
 
     localStorage.setItem("cart", JSON.stringify(newCart));
     setCart(newCart);
+  };
 
-    // Show "Added" feedback
-    setAddedItems([...addedItems, item.id]);
-    setTimeout(() => {
-      setAddedItems(addedItems.filter((id) => id !== item.id));
-    }, 2000);
+  const removeFromCart = (itemId: string) => {
+    const existingCart: CartItem[] = JSON.parse(
+      localStorage.getItem("cart") || "[]"
+    );
+    const newCart = existingCart.filter((item) => item.id !== itemId);
+
+    localStorage.setItem("cart", JSON.stringify(newCart));
+    setCart(newCart);
+  };
+
+  const updateQuantity = (itemId: string, delta: number) => {
+    const existingCart: CartItem[] = JSON.parse(
+      localStorage.getItem("cart") || "[]"
+    );
+
+    const newCart = existingCart.map((item) => {
+      if (item.id === itemId) {
+        const newQuantity = item.quantity + delta;
+        return { ...item, quantity: Math.max(1, newQuantity) };
+      }
+      return item;
+    });
+
+    localStorage.setItem("cart", JSON.stringify(newCart));
+    setCart(newCart);
   };
 
   const cartItemCount = cart.reduce((sum, item) => sum + item.quantity, 0);
@@ -292,27 +335,50 @@ export default function DonationPage() {
                             RM {item.price.toFixed(2)}
                           </p>
                         </div>
-                        <Button
-                          size="lg"
-                          onClick={() => addToCart(item)}
-                          className={`group ${
-                            addedItems.includes(item.id)
-                              ? "bg-green-600 hover:bg-green-700"
-                              : "bg-accent hover:bg-accent/90"
-                          } text-accent-foreground`}
-                        >
-                          {addedItems.includes(item.id) ? (
-                            <>
-                              <Check className="h-4 w-4 mr-2" />
-                              Added!
-                            </>
-                          ) : (
-                            <>
-                              <ShoppingCart className="h-4 w-4 mr-2" />
-                              Add to Cart
-                            </>
-                          )}
-                        </Button>
+
+                        {isInCart(item.id) ? (
+                          <div className="flex flex-col gap-2">
+                            <div className="flex items-center gap-2 bg-secondary rounded-lg p-1">
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => updateQuantity(item.id, -1)}
+                                className="h-8 w-8 p-0"
+                              >
+                                <Minus className="h-4 w-4" />
+                              </Button>
+                              <span className="min-w-[2ch] text-center font-semibold">
+                                {getCartItem(item.id)?.quantity}
+                              </span>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => updateQuantity(item.id, 1)}
+                                className="h-8 w-8 p-0"
+                              >
+                                <Plus className="h-4 w-4" />
+                              </Button>
+                            </div>
+                            <Button
+                              size="sm"
+                              variant="destructive"
+                              onClick={() => removeFromCart(item.id)}
+                              className="w-full"
+                            >
+                              <Trash2 className="h-4 w-4 mr-2" />
+                              Remove
+                            </Button>
+                          </div>
+                        ) : (
+                          <Button
+                            size="lg"
+                            onClick={() => addToCart(item)}
+                            className="bg-accent hover:bg-accent/90 text-accent-foreground"
+                          >
+                            <ShoppingCart className="h-4 w-4 mr-2" />
+                            Add to Cart
+                          </Button>
+                        )}
                       </div>
                     </CardContent>
                   </Card>
