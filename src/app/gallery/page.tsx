@@ -1,6 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Camera, Calendar } from "lucide-react";
 
@@ -18,177 +20,45 @@ const staggerContainer = {
   },
 };
 
-const galleryEvents = [
-  {
-    id: "kalyana-2023",
-    title: "Sri Vaikunta Sitarama Kalyana Mahotsvam",
-    date: "1st April 2023",
-    year: 2023,
-    category: "Ceremony",
-    description:
-      "Annual celestial wedding ceremony of Lord Rama and Goddess Sita",
-    image: "/placeholder.svg?key=kalyana-2023-1",
-    count: 4,
-  },
-  {
-    id: "bgm-2023",
-    title: "6th BGM",
-    date: "4th May 2023",
-    year: 2023,
-    category: "Meeting",
-    description: "6th Annual General Meeting of the temple association",
-    image: "/placeholder.svg?key=bgm-2023-1",
-    count: 3,
-  },
-  {
-    id: "construction-phase1",
-    title: "First Phase of Construction",
-    date: "2023",
-    year: 2023,
-    category: "Construction",
-    description: "Beginning of the temple construction project",
-    image: "/placeholder.svg?key=construction-1",
-    count: 4,
-  },
-  {
-    id: "kalyana-2022-aug",
-    title: "Sri Vaikuntta Sitarama Kalyana Mahotsvam",
-    date: "13th August 2022",
-    year: 2022,
-    category: "Ceremony",
-    description: "Special celestial wedding ceremony",
-    image: "/placeholder.svg?key=kalyana-2022-aug-1",
-    count: 3,
-  },
-  {
-    id: "model-launch-2022",
-    title: "Sri Vaikunta Sitarama Building Model Launching",
-    date: "21st May 2022",
-    year: 2022,
-    category: "Event",
-    description: "Launch of the temple building model",
-    image: "/placeholder.svg?key=model-launch-1",
-    count: 3,
-  },
-  {
-    id: "covid-aid",
-    title: "Humanitarian Aid During COVID Lockdown",
-    date: "2020-2021",
-    year: 2020,
-    category: "Community",
-    description: "Providing aid to the community during COVID-19 lockdown",
-    image: "/placeholder.svg?key=covid-aid-1",
-    count: 3,
-  },
-  {
-    id: "kalyana-2019",
-    title: "Sri Sitarama Kalyana Mahotsvam",
-    date: "2019",
-    year: 2019,
-    category: "Ceremony",
-    description: "Annual celestial wedding ceremony",
-    image: "/placeholder.svg?key=kalyana-2019-1",
-    count: 3,
-  },
-  {
-    id: "bhajan-competition-2019",
-    title: "National Bhajan Competition",
-    date: "2019",
-    year: 2019,
-    category: "Event",
-    description: "National level bhajan competition",
-    image: "/placeholder.svg?key=bhajan-2019-1",
-    count: 3,
-  },
-  {
-    id: "bgm-2019",
-    title: "Association 4th BGM",
-    date: "2019",
-    year: 2019,
-    category: "Meeting",
-    description: "4th Annual General Meeting of the temple association",
-    image: "/placeholder.svg?key=bgm-2019-1",
-    count: 2,
-  },
-  {
-    id: "site-visit",
-    title: "Site Visit by Bhadrachalam Pradana Archakulu",
-    date: "2018-2019",
-    year: 2018,
-    category: "Event",
-    description: "Visit by the head priest from Bhadrachalam temple",
-    image: "/placeholder.svg?key=site-visit-1",
-    count: 3,
-  },
-  {
-    id: "boomi-pooja",
-    title: "Boomi Pooja",
-    date: "2018",
-    year: 2018,
-    category: "Ceremony",
-    description: "Ground-breaking ceremony for the temple construction",
-    image: "/placeholder.svg?key=boomi-pooja-1",
-    count: 4,
-  },
-  {
-    id: "sita-navami-2018",
-    title: "Sita Navami",
-    date: "2018",
-    year: 2018,
-    category: "Ceremony",
-    description: "Celebration of Sita Navami",
-    image: "/placeholder.svg?key=sita-navami-2018-1",
-    count: 2,
-  },
-  {
-    id: "kalyana-2018",
-    title: "Bhadrachala Sri Sitarama Kalyana Mahotsvam",
-    date: "2018",
-    year: 2018,
-    category: "Ceremony",
-    description: "Special Bhadrachala style celestial wedding ceremony",
-    image: "/placeholder.svg?key=kalyana-2018-1",
-    count: 3,
-  },
-  {
-    id: "kalyana-2017",
-    title: "Sri Sitarama Kalyana Mahotsvam",
-    date: "2017",
-    year: 2017,
-    category: "Ceremony",
-    description: "Annual celestial wedding ceremony",
-    image: "/placeholder.svg?key=kalyana-2017-1",
-    count: 2,
-  },
-  {
-    id: "kalyana-2016",
-    title: "Sri Sitarama Kalyana Mahotsvam",
-    date: "2016",
-    year: 2016,
-    category: "Ceremony",
-    description: "Annual celestial wedding ceremony",
-    image: "/placeholder.svg?key=kalyana-2016-1",
-    count: 2,
-  },
-  {
-    id: "kalyana-2015",
-    title: "Sri Sitarama Kalyana Mahotsvam",
-    date: "2015",
-    year: 2015,
-    category: "Ceremony",
-    description: "Annual celestial wedding ceremony",
-    image: "/placeholder.svg?key=kalyana-2015-1",
-    count: 2,
-  },
-];
+interface GalleryEvent {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  images: string[];
+  category: string;
+  featured?: boolean;
+}
 
 export default function GalleryPage() {
+  const [galleryEvents, setGalleryEvents] = useState<GalleryEvent[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGalleryEvents = async () => {
+      try {
+        const response = await fetch("/api/gallery");
+        const result = await response.json();
+
+        if (result.success) {
+          setGalleryEvents(result.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch gallery events:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGalleryEvents();
+  }, []);
+
   return (
     <>
       {/* Hero Section */}
       <section className="relative h-[60vh] min-h-[500px] overflow-hidden">
         <Image
-          src="https://www.srivaikunttasitarama.com/wp-content/uploads/2021/10/External-View-2-scaled.jpg"
+          src="/devalayamu/1.jpg"
           alt="Sri Vaikuntta Sita Rama Devalayammu"
           fill
           className="object-cover"
@@ -233,78 +103,115 @@ export default function GalleryPage() {
       {/* Gallery Grid */}
       <section className="py-24 px-6">
         <div className="mx-auto max-w-7xl">
-          <motion.div
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={staggerContainer}
-            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {galleryEvents.map((event) => (
-              <motion.div
-                key={event.id}
-                variants={fadeInUp}
-                className="group relative overflow-hidden rounded-2xl bg-secondary/30 border border-border/50 hover:shadow-lg transition-all"
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <Image
-                    src={event.image}
-                    alt={event.title}
-                    fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                  <div className="absolute top-3 right-3">
-                    <div className="rounded-xl bg-background/90 backdrop-blur-sm px-3 py-1.5 border border-border/50">
-                      <span className="text-xs font-medium">
-                        {event.count} photos
-                      </span>
-                    </div>
+          {loading ? (
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3, 4, 5, 6].map((i) => (
+                <div
+                  key={i}
+                  className="rounded-2xl bg-secondary/30 border border-border/50 animate-pulse"
+                >
+                  <div className="h-64 bg-secondary rounded-t-2xl" />
+                  <div className="p-6 space-y-3">
+                    <div className="h-6 bg-secondary rounded w-3/4" />
+                    <div className="h-4 bg-secondary rounded w-full" />
+                    <div className="h-4 bg-secondary rounded w-1/2" />
                   </div>
                 </div>
-
-                <div className="p-6 space-y-3">
-                  <div className="flex items-center gap-2">
-                    <div className="rounded-lg bg-accent/10 px-3 py-1">
-                      <span className="text-xs font-semibold text-accent">
-                        {event.category}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1.5 text-muted-foreground">
-                      <Calendar className="h-3.5 w-3.5" />
-                      <span className="text-xs">{event.date}</span>
-                    </div>
-                  </div>
-
-                  <h3 className="text-lg font-semibold leading-tight">
-                    {event.title}
-                  </h3>
-
-                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
-                    {event.description}
-                  </p>
-
-                  <button className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors pt-2">
-                    View Album
-                    <svg
-                      className="h-4 w-4 transition-transform group-hover:translate-x-1"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
+              ))}
+            </div>
+          ) : (
+            <motion.div
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              variants={staggerContainer}
+              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+            >
+              {galleryEvents.map((event) => (
+                <Link key={event.id} href={`/gallery/${event.id}`}>
+                  <motion.div
+                    variants={fadeInUp}
+                    className="group relative overflow-hidden rounded-2xl bg-secondary/30 border border-border/50 hover:shadow-lg transition-all cursor-pointer"
+                  >
+                    {/* Main Image */}
+                    <div className="relative h-64 overflow-hidden">
+                      <Image
+                        src={event.images[0]}
+                        alt={event.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                    </svg>
-                  </button>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                      <div className="absolute top-3 right-3">
+                        <div className="rounded-xl bg-background/90 backdrop-blur-sm px-3 py-1.5 border border-border/50">
+                          <span className="text-xs font-medium">
+                            {event.images.length} photos
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Image Grid Preview */}
+                    <div className="grid grid-cols-4 gap-1 p-3">
+                      {event.images.slice(0, 4).map((img, idx) => (
+                        <div
+                          key={idx}
+                          className="relative aspect-square overflow-hidden rounded-lg"
+                        >
+                          <Image
+                            src={img}
+                            alt={`${event.title} - ${idx + 1}`}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      ))}
+                    </div>
+
+                    <div className="p-6 space-y-3">
+                      <div className="flex items-center gap-2">
+                        <div className="rounded-lg bg-accent/10 px-3 py-1">
+                          <span className="text-xs font-semibold text-accent">
+                            {event.category}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1.5 text-muted-foreground">
+                          <Calendar className="h-3.5 w-3.5" />
+                          <span className="text-xs">{event.date}</span>
+                        </div>
+                      </div>
+
+                      <h3 className="text-lg font-semibold leading-tight">
+                        {event.title}
+                      </h3>
+
+                      <p className="text-sm text-muted-foreground leading-relaxed line-clamp-2">
+                        {event.description}
+                      </p>
+
+                      <div className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors pt-2">
+                        View Album
+                        <svg
+                          className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </motion.div>
+                </Link>
+              ))}
+            </motion.div>
+          )}
         </div>
       </section>
 
