@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
 
 export default function EditEventPage({
   params,
@@ -65,7 +66,7 @@ export default function EditEventPage({
 
   if (loading) {
     return (
-      <div className="w-full space-y-6">
+      <div className="w-full p-6 space-y-6">
         {/* Loading Skeleton */}
         <div className="flex items-center gap-4">
           <div className="h-10 w-10 bg-secondary rounded-lg animate-pulse" />
@@ -88,7 +89,7 @@ export default function EditEventPage({
   }
 
   return (
-    <div className="w-full space-y-6">
+    <div className="w-full p-6 space-y-6">
       {/* Header */}
       <div className="flex items-center gap-4">
         <Link
@@ -244,23 +245,17 @@ export default function EditEventPage({
               placeholder="Enter detailed event information..."
             />
           </div>
-        </div>
 
-        {/* Actions */}
-        <div className="flex gap-4">
-          <button
-            type="submit"
-            className="flex-1 inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white hover:bg-accent/90 transition-colors"
-          >
-            <Save className="h-4 w-4" />
-            Update Event
-          </button>
-          <Link
-            href="/admin/events"
-            className="px-6 py-3 text-sm font-medium hover:bg-secondary rounded-full transition-colors"
-          >
-            Cancel
-          </Link>
+          {/* Actions */}
+          <div className="flex gap-4 pt-2">
+            <Button type="submit" size="lg" className="flex-1">
+              <Save className="h-4 w-4" />
+              Update Event
+            </Button>
+            <Button type="button" variant="outline" size="lg" asChild>
+              <Link href="/admin/events">Cancel</Link>
+            </Button>
+          </div>
         </div>
       </form>
     </div>
