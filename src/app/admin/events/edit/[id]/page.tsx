@@ -4,6 +4,13 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Save } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function EditEventPage({
   params,
@@ -108,20 +115,22 @@ export default function EditEventPage({
               <label className="block text-sm font-medium mb-2">
                 Category *
               </label>
-              <select
-                required
+              <Select
                 value={formData.category}
-                onChange={(e) =>
-                  setFormData({ ...formData, category: e.target.value })
+                onValueChange={(value) =>
+                  setFormData({ ...formData, category: value })
                 }
-                className="w-full px-4 py-2 rounded-lg bg-background border border-border focus:outline-none focus:ring-2 focus:ring-accent"
               >
-                <option value="">Select category</option>
-                <option value="Festival">Festival</option>
-                <option value="Regular">Regular Event</option>
-                <option value="Special">Special Occasion</option>
-                <option value="Community">Community Event</option>
-              </select>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Select category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Festival">Festival</SelectItem>
+                  <SelectItem value="Regular">Regular Event</SelectItem>
+                  <SelectItem value="Special">Special Occasion</SelectItem>
+                  <SelectItem value="Community">Community Event</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
             <div>

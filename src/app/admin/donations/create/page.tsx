@@ -5,6 +5,13 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Save, X } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function CreateDonationPage() {
   const router = useRouter();
@@ -134,23 +141,27 @@ export default function CreateDonationPage() {
                 <label className="block text-sm font-medium mb-2">
                   Category *
                 </label>
-                <select
-                  required
+                <Select
                   value={formData.category}
-                  onChange={(e) =>
-                    setFormData({ ...formData, category: e.target.value })
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, category: value })
                   }
-                  className="w-full px-4 py-2 rounded-lg bg-background border border-border focus:outline-none focus:ring-2 focus:ring-accent"
                 >
-                  <option value="">Select Category</option>
-                  <option value="Plants">Plants</option>
-                  <option value="Pooja Items">Pooja Items</option>
-                  <option value="Spiritual Items">Spiritual Items</option>
-                  <option value="Books">Books</option>
-                  <option value="Idols">Idols</option>
-                  <option value="Clothing">Clothing</option>
-                  <option value="Other">Other</option>
-                </select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Category" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Plants">Plants</SelectItem>
+                    <SelectItem value="Pooja Items">Pooja Items</SelectItem>
+                    <SelectItem value="Spiritual Items">
+                      Spiritual Items
+                    </SelectItem>
+                    <SelectItem value="Books">Books</SelectItem>
+                    <SelectItem value="Idols">Idols</SelectItem>
+                    <SelectItem value="Clothing">Clothing</SelectItem>
+                    <SelectItem value="Other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 

@@ -5,6 +5,13 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowLeft, Calendar, ImageIcon, Save, X } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function CreateGalleryPage() {
   const router = useRouter();
@@ -113,21 +120,25 @@ export default function CreateGalleryPage() {
                 <label className="block text-sm font-medium mb-2">
                   Category *
                 </label>
-                <select
-                  required
+                <Select
                   value={formData.category}
-                  onChange={(e) =>
-                    setFormData({ ...formData, category: e.target.value })
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, category: value })
                   }
-                  className="w-full px-4 py-2 rounded-lg bg-background border border-border focus:outline-none focus:ring-2 focus:ring-accent"
                 >
-                  <option value="">Select Category</option>
-                  <option value="Festival">Festival</option>
-                  <option value="Daily Ritual">Daily Ritual</option>
-                  <option value="Infrastructure">Infrastructure</option>
-                  <option value="Special Event">Special Event</option>
-                  <option value="Community">Community</option>
-                </select>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select Category" />
+                  </SelectTrigger>
+                  <SelectContent className="bg-white">
+                    <SelectItem value="Festival">Festival</SelectItem>
+                    <SelectItem value="Daily Ritual">Daily Ritual</SelectItem>
+                    <SelectItem value="Infrastructure">
+                      Infrastructure
+                    </SelectItem>
+                    <SelectItem value="Special Event">Special Event</SelectItem>
+                    <SelectItem value="Community">Community</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
